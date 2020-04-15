@@ -17,7 +17,7 @@ public class PanelMenu extends JPanel {
 	private JButton btnLineup;
 	private JButton btnMessagerie;
 	private JButton btnBudget;
-	private JButton btnEquipe;
+	private JButton btnEffectif;
 	
 	/**
 	 * Create the panel.
@@ -31,8 +31,8 @@ public class PanelMenu extends JPanel {
 		btnMessagerie = new JButton("Messagerie");
 		add(btnMessagerie);
 		
-		btnEquipe = new JButton("Equipe");
-		add(btnEquipe);
+		btnEffectif = new JButton("Effectif");
+		add(btnEffectif);
 		
 		btnBudget = new JButton("Budget");
 		add(btnBudget);
@@ -60,6 +60,6 @@ public class PanelMenu extends JPanel {
 		return btnBudget;
 	}
 	public JButton getBtnEquipe() {
-		return btnEquipe;
+		return btnEffectif;
 	}
 }

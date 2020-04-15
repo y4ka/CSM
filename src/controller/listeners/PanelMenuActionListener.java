@@ -55,12 +55,12 @@ public class PanelMenuActionListener implements ActionListener {
 	
 	private void btnEquipeEvent()
 	{
-		//Met à jour les données du panneau Equipe:
-		mainFrame.getPanelEquipe().update(gameData);
+		//Met à jour les données du panneau Effectif:
+		mainFrame.getPanelEffectif().update(gameData);
 		
 		//Affiche le panneau une fois qu'il est a jour:
 		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
-	    cl.show(mainFrame.getPanelCenter(), "panelEquipe");
+	    cl.show(mainFrame.getPanelCenter(), "panelEffectif");
 	}
 	
 	private void btnMessagerieEvent()

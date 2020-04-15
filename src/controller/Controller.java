@@ -1,7 +1,6 @@
 package controller;
 
 import controller.listeners.PanelAgendaActionListener;
-import controller.listeners.PanelEquipeMouseListener;
 import controller.listeners.PanelLineupActionListener;
 import controller.listeners.PanelMenuActionListener;
 import controller.listeners.PanelSouthActionListener;
@@ -17,7 +16,6 @@ public class Controller {
 	
 	//Listeners
 	PanelMenuActionListener panelMenuActionListener;
-	PanelEquipeMouseListener panelEquipeMouseListener;
 	PanelTactiquesActionListener panelTactiquesActionListener;
 	PanelLineupActionListener panelLineupActionListener;
 	PanelAgendaActionListener panelAgendaActionListener;
@@ -31,7 +29,6 @@ public class Controller {
 		
 		//Listeners
 		this.panelMenuActionListener = new PanelMenuActionListener(gameData, mainFrame);
-		this.panelEquipeMouseListener = new PanelEquipeMouseListener(gameData, mainFrame);
 		this.panelTactiquesActionListener = new PanelTactiquesActionListener(gameData, mainFrame);
 		this.panelLineupActionListener = new PanelLineupActionListener(gameData, mainFrame);
 		this.panelAgendaActionListener = new PanelAgendaActionListener(gameData, mainFrame);
@@ -47,9 +44,6 @@ public class Controller {
 		mainFrame.getPanelMenu().getBtnBudget().addActionListener(panelMenuActionListener);
 		mainFrame.getPanelMenu().getBtnTactiques().addActionListener(panelMenuActionListener);
 		mainFrame.getPanelMenu().getBtnLineup().addActionListener(panelMenuActionListener);
-		
-		//panelEquipeMouseListener
-		mainFrame.getPanelEquipe().addMouseListener(panelEquipeMouseListener);
 		
 		//panelTactiquesActionListener
 		mainFrame.getComboBoxTactiqueJoueur1().addActionListener(panelTactiquesActionListener);

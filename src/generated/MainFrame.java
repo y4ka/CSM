@@ -19,12 +19,9 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
-import java.awt.Frame;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
+
 import generated.MainPanels.PanelAgenda;
-import generated.MainPanels.PanelEquipe;
+import generated.MainPanels.PanelEffectif;
 
 public class MainFrame {
 
@@ -63,7 +60,7 @@ public class MainFrame {
 	private JButton btnContinue;
 	private PanelAgenda panelAgenda;
 	private PanelMenu panelMenu;
-	private PanelEquipe panelEquipe;
+	private PanelEffectif panelEffectif;
 
 	/**
 	 * Create the application.
@@ -127,9 +124,6 @@ public class MainFrame {
 		
 		JButton btnRefuser = new JButton("Refuser");
 		panelBoutonsChoixMessage.add(btnRefuser);
-		
-		panelEquipe = new PanelEquipe();
-		panelCenter.add(panelEquipe, "panelEquipe");
 		
 		panelBudget = new JPanel();
 		panelBudget.setBorder(new TitledBorder(null, "Budget", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -235,6 +229,9 @@ public class MainFrame {
 		comboBoxLineUpPlayer5 = new JComboBox();
 		panelLineUp.add(comboBoxLineUpPlayer5);
 		
+		panelEffectif = new PanelEffectif();
+		panelCenter.add(panelEffectif, "panelEffectif");
+		
 		panelSouth = new JPanel();
 		frame.getContentPane().add(panelSouth, BorderLayout.SOUTH);
 		panelSouth.setLayout(new BorderLayout(0, 0));
@@ -301,7 +298,7 @@ public class MainFrame {
 	public JPanel getPanelLineUp() {
 		return panelLineUp;
 	}
-	public PanelEquipe getPanelEquipe() {
-		return panelEquipe;
+	public PanelEffectif getPanelEffectif() {
+		return panelEffectif;
 	}
 }
