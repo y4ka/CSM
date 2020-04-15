@@ -178,4 +178,12 @@ public class GameData
 	public Agenda getAgenda() {
 		return agenda;
 	}
+	
+	public Team getTeam(int id)
+	{
+		if (teamDatabase.containsKey(id))
+			return teamDatabase.get(id);
+		else
+			return null;
+	}
 }

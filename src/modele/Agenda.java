@@ -27,22 +27,11 @@ public class Agenda
 		//A chaque fois qu'un getter est appelé sur l'agenda et que le jour n'existe pas, on l'ajoute.
 	}
 	
-	private void addMonthToAgenda(LocalDate date)
-	{
-		int lengthOfMonth = date.lengthOfMonth();
-		LocalDate today = date;
-		for (int i = 1 ; i < lengthOfMonth ; i++)
-		{
-			today = today.withDayOfMonth(i);
-			agenda.put(today, new Day());
-		}
-	}
-	
 	// === GETTERS ====
 	
 	public DayEvent getCurrentDayEvent()
 	{
-		return agenda.get(currentDate).getDayEvent();
+		return this.getCurrentDay().getDayEvent();
 	}
 	
 	public Day getCurrentDay()
@@ -58,7 +47,7 @@ public class Agenda
 	
 	public DayEvent getDayEvent(LocalDate date)
 	{
-		return agenda.get(date).getDayEvent();
+		return this.getDay(date).getDayEvent();
 	}
 	
 	public Day getDay(LocalDate date)
@@ -82,12 +71,13 @@ public class Agenda
 	
 	// === SETTERS ===
 	
-//	public void addEventToCalendar()
-//	{
-//		//Test ajout d'un match:
-//		EventMatch matchEnCours = new EventMatch(teamDatabase.get(1), teamDatabase.get(4));
-//		agenda.get(LocalDate.now().plusDays(1)).setDayEvent(matchEnCours);
-//	}
+	public void addEventToCalendar(DayEvent event, LocalDate date)
+	{
+		Day day = this.getDay(date);
+		day.setDayEvent(event);
+		
+		agenda.put(date, day);
+	}
 	
 	// === DISPLAY ===
 	

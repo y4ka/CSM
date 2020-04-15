@@ -22,6 +22,7 @@ import javax.swing.border.TitledBorder;
 
 import generated.MainPanels.PanelAgenda;
 import generated.MainPanels.PanelEffectif;
+import generated.MainPanels.PanelPresentationMatch;
 
 public class MainFrame {
 
@@ -61,6 +62,7 @@ public class MainFrame {
 	private PanelAgenda panelAgenda;
 	private PanelMenu panelMenu;
 	private PanelEffectif panelEffectif;
+	private PanelPresentationMatch panelPresentationMatch;
 
 	/**
 	 * Create the application.
@@ -232,6 +234,9 @@ public class MainFrame {
 		panelEffectif = new PanelEffectif();
 		panelCenter.add(panelEffectif, "panelEffectif");
 		
+		panelPresentationMatch = new PanelPresentationMatch();
+		panelCenter.add(panelPresentationMatch, "panelPresentationMatch");
+		
 		panelSouth = new JPanel();
 		frame.getContentPane().add(panelSouth, BorderLayout.SOUTH);
 		panelSouth.setLayout(new BorderLayout(0, 0));
@@ -300,5 +305,8 @@ public class MainFrame {
 	}
 	public PanelEffectif getPanelEffectif() {
 		return panelEffectif;
+	}
+	public PanelPresentationMatch getPanelPresentationMatch() {
+		return panelPresentationMatch;
 	}
 }

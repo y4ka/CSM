@@ -184,4 +184,20 @@ public class EventMatch implements DayEvent {
 	public String getEventDescription() {
 		return inGameTeamA.getName()+" vs "+inGameTeamB.getName();
 	}
+
+	public InGameTeam getInGameTeamA() {
+		return inGameTeamA;
+	}
+
+	public void setInGameTeamA(InGameTeam inGameTeamA) {
+		this.inGameTeamA = inGameTeamA;
+	}
+
+	public InGameTeam getInGameTeamB() {
+		return inGameTeamB;
+	}
+
+	public void setInGameTeamB(InGameTeam inGameTeamB) {
+		this.inGameTeamB = inGameTeamB;
+	}
 }

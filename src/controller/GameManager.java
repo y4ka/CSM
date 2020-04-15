@@ -1,7 +1,9 @@
 package controller;
 
+import controller.dayEvents.EventMatch;
 import generated.MainFrame;
 import modele.GameData;
+import modele.Team;
 
 public class GameManager 
 {
@@ -23,38 +25,17 @@ public class GameManager
 		
 		//Choix de l'equipe du joueur:
 		gameData.chooseMyTeam(4);
-	}
-	
-	public void lancerPartie()
-	{
-		while (true)
-		{
-			tour();
-		}
-	}
-	
-	private void tour()
-	{
+		
+		//Test:
 		generateEvents();
-		
-		playerTurn();
-		
-		calculateModifications();
 	}
 	
 	private boolean generateEvents()
 	{
-		//gameData.getAgenda().addEventToCalendar();
-		return true;
-	}
-	
-	private boolean playerTurn()
-	{
-		return true;
-	}
-	
-	private boolean calculateModifications()
-	{
+		Team teamA = gameData.getMonEquipe();
+		Team teamB = gameData.getTeam(1);
+		EventMatch test = new EventMatch(teamA, teamB);
+		gameData.getAgenda().addEventToCalendar(test, gameData.getAgenda().getCurrentDate());
 		return true;
 	}
 }
