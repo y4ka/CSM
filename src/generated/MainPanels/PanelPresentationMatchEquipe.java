@@ -41,6 +41,11 @@ public class PanelPresentationMatchEquipe extends JPanel {
 
 	public void update(Team team)
 	{
+		//Affichage nom equipe:
+		TitledBorder titledBorder = (TitledBorder) this.getBorder();
+		titledBorder.setTitle(team.getName());
+		
+		//Affichage joueurs:
 		for (int i = 0 ; i < team.getPlayers().length ; i++)
 		{
 			switch (i)
