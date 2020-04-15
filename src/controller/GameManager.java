@@ -2,8 +2,10 @@ package controller;
 
 import controller.dayEvents.EventMatch;
 import generated.MainFrame;
+import modele.EMail;
 import modele.GameData;
 import modele.Team;
+import modele.EMail.EMAIL_TYPE;
 
 public class GameManager 
 {
@@ -28,14 +30,22 @@ public class GameManager
 		
 		//Test:
 		generateEvents();
+		generateMessages();
 	}
 	
-	private boolean generateEvents()
+	private void generateEvents()
 	{
 		Team teamA = gameData.getMonEquipe();
 		Team teamB = gameData.getTeam(1);
 		EventMatch test = new EventMatch(teamA, teamB);
 		gameData.getAgenda().addEventToCalendar(test, gameData.getAgenda().getCurrentDate());
-		return true;
+	}
+	
+	private void generateMessages()
+	{
+		String emailTitle = "Titre email.";
+		String emailContent = "Test du texte d'un email.";
+		EMail test = new EMail(EMAIL_TYPE.INFORMATION, emailTitle, emailContent);
+		gameData.getMessagerie().addEmail(test);
 	}
 }

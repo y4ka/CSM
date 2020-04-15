@@ -1,4 +1,4 @@
-package generated.MainPanels;
+package generated.panelCenter.panelAgenda;
 
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;

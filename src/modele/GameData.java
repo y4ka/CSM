@@ -21,8 +21,7 @@ public class GameData
 	
 	private Team monEquipe;
 	private Agenda agenda = new Agenda();
-	
-	private ArrayList<EMail> messagerie = new ArrayList<EMail>();
+	private Messagerie messagerie = new Messagerie();
 	
 	public GameData()
 	{
@@ -185,5 +184,9 @@ public class GameData
 			return teamDatabase.get(id);
 		else
 			return null;
+	}
+
+	public Messagerie getMessagerie() {
+		return messagerie;
 	}
 }

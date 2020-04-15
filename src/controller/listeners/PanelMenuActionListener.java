@@ -65,6 +65,9 @@ public class PanelMenuActionListener implements ActionListener {
 	
 	private void btnMessagerieEvent()
 	{
+		//Met à jour les données du panneau Messagerie:
+		mainFrame.getPanelMessagerie().update(gameData);
+		
 		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
 	    cl.show(mainFrame.getPanelCenter(), "panelMessagerie");
 	}

@@ -20,9 +20,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
-import generated.MainPanels.PanelAgenda;
-import generated.MainPanels.PanelEffectif;
-import generated.MainPanels.PanelPresentationMatch;
+import generated.panelCenter.panelAgenda.PanelAgenda;
+import generated.panelCenter.panelEffectif.PanelEffectif;
+import generated.panelCenter.panelMessagerie.PanelMessagerie;
+import generated.panelCenter.panelPresentationMatch.PanelPresentationMatch;
 
 public class MainFrame {
 
@@ -63,6 +64,7 @@ public class MainFrame {
 	private PanelMenu panelMenu;
 	private PanelEffectif panelEffectif;
 	private PanelPresentationMatch panelPresentationMatch;
+	private PanelMessagerie panelMessagerie;
 
 	/**
 	 * Create the application.
@@ -86,46 +88,8 @@ public class MainFrame {
 		panelAgenda = new PanelAgenda();
 		panelCenter.add(panelAgenda, "panelAgenda");
 		
-		JPanel panelMessagerie = new JPanel();
-		panelMessagerie.setBorder(new TitledBorder(null, "Messagerie", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelMessagerie = new PanelMessagerie();
 		panelCenter.add(panelMessagerie, "panelMessagerie");
-		panelMessagerie.setLayout(new BorderLayout(0, 0));
-		
-		JPanel panelListeMessages = new JPanel();
-		panelListeMessages.setBackground(SystemColor.control);
-		panelMessagerie.add(panelListeMessages, BorderLayout.WEST);
-		panelListeMessages.setLayout(new BorderLayout(0, 0));
-		
-		JList listMessages = new JList();
-		listMessages.setBackground(SystemColor.controlHighlight);
-		listMessages.setModel(new AbstractListModel() {
-			String[] values = new String[] {"TestMessage1", "TestMessage2"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		panelListeMessages.add(listMessages);
-		
-		JPanel panelDetailMessage = new JPanel();
-		panelDetailMessage.setBackground(SystemColor.controlHighlight);
-		panelMessagerie.add(panelDetailMessage);
-		panelDetailMessage.setLayout(new BorderLayout(0, 0));
-		
-		JTextArea textAreaDetailMessage = new JTextArea();
-		textAreaDetailMessage.setEditable(false);
-		panelDetailMessage.add(textAreaDetailMessage, BorderLayout.CENTER);
-		
-		JPanel panelBoutonsChoixMessage = new JPanel();
-		panelDetailMessage.add(panelBoutonsChoixMessage, BorderLayout.SOUTH);
-		
-		JButton btnAccepter = new JButton("Accepter");
-		panelBoutonsChoixMessage.add(btnAccepter);
-		
-		JButton btnRefuser = new JButton("Refuser");
-		panelBoutonsChoixMessage.add(btnRefuser);
 		
 		panelBudget = new JPanel();
 		panelBudget.setBorder(new TitledBorder(null, "Budget", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -308,5 +272,8 @@ public class MainFrame {
 	}
 	public PanelPresentationMatch getPanelPresentationMatch() {
 		return panelPresentationMatch;
+	}
+	public PanelMessagerie getPanelMessagerie() {
+		return panelMessagerie;
 	}
 }
