@@ -43,9 +43,14 @@ public class GameManager
 	
 	private void generateMessages()
 	{
-		String emailTitle = "Titre email.";
-		String emailContent = "Test du texte d'un email.";
+		String emailTitle = "Titre 1.";
+		String emailContent = "Test du texte d'un email 1.";
 		EMail test = new EMail(EMAIL_TYPE.INFORMATION, emailTitle, emailContent);
 		gameData.getMessagerie().addEmail(test);
+		
+		String emailTitle2 = "Titre 2.";
+		String emailContent2 = "Test du texte d'un email 2.";
+		EMail test2 = new EMail(EMAIL_TYPE.INFORMATION, emailTitle2, emailContent2);
+		gameData.getMessagerie().addEmail(test2);
 	}
 }

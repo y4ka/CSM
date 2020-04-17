@@ -32,4 +32,7 @@ public class PanelMessagerie extends JPanel implements Observer {
 	{
 		panelMessagerieListe.update(gameData);
 	}
+	public PanelMessagerieDetail getPanelMessagerieDetail() {
+		return panelMessagerieDetail;
+	}
 }
