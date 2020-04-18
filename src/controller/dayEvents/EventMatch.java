@@ -8,6 +8,9 @@ import modele.Team;
 
 public class EventMatch implements DayEvent {
 	
+	private boolean isStarted = false;
+	private boolean isFinished = false;
+	
 	private InGameTeam inGameTeamA;
 	private InGameTeam inGameTeamB;
 	
@@ -17,31 +20,6 @@ public class EventMatch implements DayEvent {
 	{
 		this.inGameTeamA = teamA.getInGameTeam();
 		this.inGameTeamB = teamB.getInGameTeam();
-	}
-	
-	public void startMatch()
-	{
-		chooseSide();
-		
-		while (!checkVictory())
-		{
-			System.out.println("Round "+roundJoues+": "+inGameTeamA.getScore()+" - "+inGameTeamB.getScore());
-			
-			buyRound(inGameTeamA);
-			buyRound(inGameTeamB);
-			
-			//chooseStrategy(inGameTeamA);
-			//chooseStrategy(inGameTeamB);
-			
-			playRound();
-			
-			roundJoues++;
-			
-			if (checkHalfTime())
-			{
-				changeSides();
-			}
-		}
 	}
 	
 	private void chooseSide()
@@ -163,9 +141,39 @@ public class EventMatch implements DayEvent {
 	{
 		System.out.println("startEvent MATCH");
 		
-		//Affiche le panel match
-		//CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
-	    //cl.show(mainFrame.getPanelCenter(), "panelMatch");
+		//Si le match n'est pas lancé, on le lance:
+		if (!isStarted)
+		{
+			chooseSide();
+			isStarted = true;
+		}
+		
+		//Si le match n'est pas terminé on joue un round:
+		if (!isFinished) 
+		{
+			System.out.println("Round "+roundJoues+": "+inGameTeamA.getScore()+" - "+inGameTeamB.getScore());
+			
+			buyRound(inGameTeamA);
+			buyRound(inGameTeamB);
+			
+			//chooseStrategy(inGameTeamA);
+			//chooseStrategy(inGameTeamB);
+			
+			playRound();
+			
+			roundJoues++;
+			
+			if (checkHalfTime())
+			{
+				changeSides();
+			}
+			
+			isFinished = checkVictory();
+		}
+		else
+		{
+			System.out.println("MATCH TERMINE");
+		}
 	}
 
 	@Override

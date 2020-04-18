@@ -11,6 +11,8 @@ import modele.GameData;
 
 public class PanelSouthActionListener implements ActionListener {
 	
+	private boolean presentationMatch= false;
+	
 	//MVC
 	GameData gameData;
 	MainFrame mainFrame;
@@ -63,7 +65,7 @@ public class PanelSouthActionListener implements ActionListener {
 		switch(event.getEventType())
 		{
 		case MATCH:
-			affichagePresentationMatch((EventMatch) event);
+			eventMatch((EventMatch)event);
 			break;
 		default:
 			break;
@@ -76,13 +78,37 @@ public class PanelSouthActionListener implements ActionListener {
 		
 	}
 	
+	private void eventMatch(EventMatch match)
+	{
+		if (!presentationMatch)
+		{
+			affichagePresentationMatch(match);
+			presentationMatch = true;
+		}
+		else
+		{
+			affichageMatch(match);
+			presentationMatch = false;
+		}
+	}
+	
 	private void affichagePresentationMatch(EventMatch match)
 	{
-		//Met à jour les données du panneau Agenda:
+		//Met à jour les données du panneau PresentationMatch:
 		mainFrame.getPanelPresentationMatch().update(match);
 				
 		//Affiche le panneau une fois qu'il est a jour:
 		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
 		cl.show(mainFrame.getPanelCenter(), "panelPresentationMatch");
+	}
+	
+	private void affichageMatch(EventMatch match)
+	{
+		//Met à jour les données du panneau Match:
+		mainFrame.getPanelMatch().update(match);
+		
+		//Affiche le panneau une fois qu'il est a jour:
+		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
+		cl.show(mainFrame.getPanelCenter(), "panelMatch");
 	}
 }

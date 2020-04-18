@@ -46,7 +46,7 @@ public class PanelPresentationMatchEquipe extends JPanel {
 		titledBorder.setTitle(team.getName());
 		
 		//Affichage joueurs:
-		for (int i = 0 ; i < team.getPlayers().length ; i++)
+		for (int i = 0 ; i < team.getPlayers().length ; i++) //TODO Creation des panels a la volée
 		{
 			switch (i)
 			{

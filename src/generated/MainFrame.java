@@ -24,6 +24,7 @@ import generated.panelCenter.panelAgenda.PanelAgenda;
 import generated.panelCenter.panelEffectif.PanelEffectif;
 import generated.panelCenter.panelMessagerie.PanelMessagerie;
 import generated.panelCenter.panelPresentationMatch.PanelPresentationMatch;
+import generated.panelCenter.panelMatch.PanelMatch;
 
 public class MainFrame {
 
@@ -31,7 +32,6 @@ public class MainFrame {
 	private JPanel panelCenter;
 	private JPanel panelBudget;
 	private JPanel panelEntrainement;
-	private JPanel panelMatch;
 	private JPanel panelTactiques;
 	private JPanel panelTactiqueJoueur1;
 	private Label labelNickNameTactiqueJoueur1;
@@ -50,14 +50,6 @@ public class MainFrame {
 	private JComboBox comboBoxLineUpPlayer3;
 	private JComboBox comboBoxLineUpPlayer4;
 	private JComboBox comboBoxLineUpPlayer5;
-	private JButton btnMatchStart;
-	private JPanel panelMatchTeamA;
-	private JPanel panelMatchTeamB;
-	private JPanel panelMatchCenter;
-	private Label labelTeamAName;
-	private Label labelTeamALogo;
-	private JLabel labelMatchScore;
-	private TextArea textAreaMatchLogs;
 	private JPanel panelSouth;
 	private JButton btnContinue;
 	private PanelAgenda panelAgenda;
@@ -65,6 +57,7 @@ public class MainFrame {
 	private PanelEffectif panelEffectif;
 	private PanelPresentationMatch panelPresentationMatch;
 	private PanelMessagerie panelMessagerie;
+	private PanelMatch panelMatch;
 
 	/**
 	 * Create the application.
@@ -98,40 +91,6 @@ public class MainFrame {
 		panelEntrainement = new JPanel();
 		panelEntrainement.setBorder(new TitledBorder(null, "Entrainement", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelCenter.add(panelEntrainement, "panelEntrainement");
-		
-		panelMatch = new JPanel();
-		panelMatch.setBorder(new TitledBorder(null, "Match", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelCenter.add(panelMatch, "panelMatch");
-		panelMatch.setLayout(new BorderLayout(0, 0));
-		
-		panelMatchTeamA = new JPanel();
-		panelMatch.add(panelMatchTeamA, BorderLayout.WEST);
-		panelMatchTeamA.setLayout(new BoxLayout(panelMatchTeamA, BoxLayout.Y_AXIS));
-		
-		labelTeamAName = new Label("Vide");
-		panelMatchTeamA.add(labelTeamAName);
-		
-		labelTeamALogo = new Label("Vide");
-		panelMatchTeamA.add(labelTeamALogo);
-		
-		panelMatchTeamB = new JPanel();
-		panelMatch.add(panelMatchTeamB, BorderLayout.EAST);
-		
-		panelMatchCenter = new JPanel();
-		panelMatch.add(panelMatchCenter);
-		panelMatchCenter.setLayout(new BoxLayout(panelMatchCenter, BoxLayout.Y_AXIS));
-		
-		btnMatchStart = new JButton("Start");
-		btnMatchStart.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panelMatchCenter.add(btnMatchStart);
-		
-		labelMatchScore = new JLabel("Vide");
-		labelMatchScore.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panelMatchCenter.add(labelMatchScore);
-		
-		textAreaMatchLogs = new TextArea();
-		textAreaMatchLogs.setEditable(false);
-		panelMatchCenter.add(textAreaMatchLogs);
 		
 		panelTactiques = new JPanel();
 		panelTactiques.setBorder(new TitledBorder(null, "Tactiques", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -201,6 +160,9 @@ public class MainFrame {
 		panelPresentationMatch = new PanelPresentationMatch();
 		panelCenter.add(panelPresentationMatch, "panelPresentationMatch");
 		
+		panelMatch = new PanelMatch();
+		panelCenter.add(panelMatch, "panelMatch");
+		
 		panelSouth = new JPanel();
 		frame.getContentPane().add(panelSouth, BorderLayout.SOUTH);
 		panelSouth.setLayout(new BorderLayout(0, 0));
@@ -252,9 +214,6 @@ public class MainFrame {
 	public JComboBox getComboBoxLineUpPlayer4() {
 		return comboBoxLineUpPlayer4;
 	}
-	public JButton getBtnMatchStart() {
-		return btnMatchStart;
-	}
 	public JButton getBtnContinue() {
 		return btnContinue;
 	}
@@ -275,5 +234,8 @@ public class MainFrame {
 	}
 	public PanelMessagerie getPanelMessagerie() {
 		return panelMessagerie;
+	}
+	public PanelMatch getPanelMatch() {
+		return panelMatch;
 	}
 }

@@ -3,6 +3,8 @@ package controller.listeners;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import controller.dayEvents.DayEvent;
+import controller.dayEvents.EventMatch;
 import generated.MainFrame;
 import modele.GameData;
 
@@ -22,13 +24,13 @@ public class PanelMatchActionListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		if (e.getSource().equals(mainFrame.getBtnMatchStart()))
-		{
-			//TODO
-//			if (gameData.getMatchEnCours() != null)
-//			{
-//				gameData.getMatchEnCours().startMatch();
-//			}
-		}
+		//On recupere l'evenement en cours:
+		EventMatch match = (EventMatch) gameData.getAgenda().getCurrentDayEvent();
+		
+		//On lance l'evenement:
+		match.startEvent();
+		
+		//On met a jour la fenetre de match:
+		mainFrame.getPanelMatch().update(match);
 	}
 }
