@@ -37,7 +37,7 @@ public class GameManager
 	{
 		Team teamA = gameData.getMonEquipe();
 		Team teamB = gameData.getTeam(1);
-		EventMatch test = new EventMatch(teamA, teamB);
+		EventMatch test = new EventMatch(gameData, mainFrame, teamA, teamB);
 		gameData.getAgenda().addEventToCalendar(test, gameData.getAgenda().getCurrentDate());
 	}
 	

@@ -11,10 +11,12 @@ import java.awt.BorderLayout;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
 
 public class PanelMatchLogs extends JPanel {
 	private JLabel lblScore;
 	private JTextArea textAreaLogs;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Create the panel.
@@ -29,8 +31,8 @@ public class PanelMatchLogs extends JPanel {
 		add(lblScore, BorderLayout.NORTH);
 		
 		textAreaLogs = new JTextArea();
-		add(textAreaLogs, BorderLayout.CENTER);
-
+		scrollPane = new JScrollPane(textAreaLogs);
+		add(scrollPane, BorderLayout.CENTER);
 	}
 
 	public void update(EventMatch match) 
@@ -39,5 +41,8 @@ public class PanelMatchLogs extends JPanel {
 		int scoreA = match.getInGameTeamA().getScore();
 		int scoreB = match.getInGameTeamB().getScore();
 		lblScore.setText(scoreA+" - "+scoreB);
+	}
+	public JTextArea getTextAreaLogs() {
+		return textAreaLogs;
 	}
 }

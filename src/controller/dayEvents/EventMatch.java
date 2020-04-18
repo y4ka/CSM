@@ -1,5 +1,7 @@
 package controller.dayEvents;
 
+import generated.MainFrame;
+import modele.GameData;
 import modele.InGamePlayer.KEVLAR;
 import modele.InGamePlayer.PRIMARY;
 import modele.InGamePlayer.SECONDARY;
@@ -7,6 +9,10 @@ import modele.InGameTeam;
 import modele.Team;
 
 public class EventMatch implements DayEvent {
+	
+	// MVC
+	GameData gameData;
+	MainFrame mainFrame;
 	
 	private boolean isStarted = false;
 	private boolean isFinished = false;
@@ -16,8 +22,11 @@ public class EventMatch implements DayEvent {
 	
 	private int roundJoues = 0;
 	
-	public EventMatch(Team teamA, Team teamB)
+	public EventMatch(GameData gameData, MainFrame mainFrame, Team teamA, Team teamB) //TODO Virer les team du constructeur.
 	{
+		this.gameData = gameData;
+		this.mainFrame = mainFrame;
+		
 		this.inGameTeamA = teamA.getInGameTeam();
 		this.inGameTeamB = teamB.getInGameTeam();
 	}
@@ -56,7 +65,7 @@ public class EventMatch implements DayEvent {
 	
 	private void changeSides()
 	{
-		System.out.println("Teams switches sides.");
+		showLog("\nHalftime : Teams switches sides.\n");
 		inGameTeamA.switchSides();
 		inGameTeamB.switchSides();
 	}
@@ -122,17 +131,17 @@ public class EventMatch implements DayEvent {
 		averageTeamARating = averageTeamARating/5;
 		averageTeamBRating = averageTeamBRating/5;
 		
-		System.out.println("Team Average Rating: "+averageTeamARating+"/"+averageTeamBRating);
-		
 		if (averageTeamARating >= averageTeamBRating)
 		{
 			inGameTeamA.winRound();
 			inGameTeamB.looseRound();
+			showLog("Round over - Winner: "+ inGameTeamA.getSide()+"("+inGameTeamA.getScore()+" - "+inGameTeamB.getScore()+")- Ennemy eliminated");
 		}
 		else
 		{
 			inGameTeamA.looseRound();
 			inGameTeamB.winRound();
+			showLog("Round over - Winner: "+ inGameTeamB.getSide()+"("+inGameTeamA.getScore()+" - "+inGameTeamB.getScore()+")- Ennemy eliminated");
 		}
 	}
 
@@ -152,6 +161,7 @@ public class EventMatch implements DayEvent {
 		if (!isFinished) 
 		{
 			System.out.println("Round "+roundJoues+": "+inGameTeamA.getScore()+" - "+inGameTeamB.getScore());
+			showLog("Round started.");
 			
 			buyRound(inGameTeamA);
 			buyRound(inGameTeamB);
@@ -172,8 +182,13 @@ public class EventMatch implements DayEvent {
 		}
 		else
 		{
-			System.out.println("MATCH TERMINE");
+			showLog("Match terminé");
 		}
+	}
+	
+	private void showLog(String log)
+	{
+		mainFrame.getPanelMatch().getPanelMatchLogs().getTextAreaLogs().append(log+"\n");
 	}
 
 	@Override

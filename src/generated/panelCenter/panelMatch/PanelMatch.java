@@ -47,4 +47,7 @@ public class PanelMatch extends JPanel {
 	public PanelMatchActions getPanelMatchActions() {
 		return panelMatchActions;
 	}
+	public PanelMatchLogs getPanelMatchLogs() {
+		return panelMatchLogs;
+	}
 }
