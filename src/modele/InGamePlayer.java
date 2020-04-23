@@ -11,6 +11,7 @@ public class InGamePlayer extends Player {
 	private KEVLAR kevlar;
 	
 	private int money;
+	private int HP;
 	
 	public InGamePlayer(Player player)
 	{
@@ -29,6 +30,22 @@ public class InGamePlayer extends Player {
 		this.kevlar = KEVLAR.NONE;
 		
 		this.money = 800;
+		this.HP = 100;
+	}
+	
+	public boolean isAlive()
+	{
+		if (HP <= 0)
+			return false;
+		else
+			return true;
+	}
+	
+	public void takeDamages(int damageValue)
+	{
+		HP = HP - damageValue;
+		if (HP < 0)
+			HP = 0;
 	}
 
 	public PRIMARY getPrimaryWeapon() {
@@ -61,5 +78,13 @@ public class InGamePlayer extends Player {
 
 	public void setKevlar(KEVLAR kevlar) {
 		this.kevlar = kevlar;
+	}
+
+	public int getHP() {
+		return HP;
+	}
+
+	public void setHP(int hP) {
+		HP = hP;
 	}
 }

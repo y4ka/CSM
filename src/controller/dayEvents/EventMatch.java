@@ -1,7 +1,10 @@
 package controller.dayEvents;
 
+import java.util.Random;
+
 import generated.MainFrame;
 import modele.GameData;
+import modele.InGamePlayer;
 import modele.InGamePlayer.KEVLAR;
 import modele.InGamePlayer.PRIMARY;
 import modele.InGamePlayer.SECONDARY;
@@ -131,20 +134,145 @@ public class EventMatch implements DayEvent {
 		averageTeamARating = averageTeamARating/5;
 		averageTeamBRating = averageTeamBRating/5;
 		
+		//Determination du vainqueur du round:
 		if (averageTeamARating >= averageTeamBRating)
+			roundResult(inGameTeamA, inGameTeamB);
+		else
+			roundResult(inGameTeamB, inGameTeamA);
+	}
+	
+	private void playRoundV2()
+	{
+		for (InGamePlayer playerA : inGameTeamA.getInGamePlayers())
 		{
-			inGameTeamA.winRound();
-			inGameTeamB.looseRound();
-			showLog("Round over - Winner: "+ inGameTeamA.getSide()+"("+inGameTeamA.getScore()+" - "+inGameTeamB.getScore()+")- Ennemy eliminated");
+			if (playerA.isAlive())
+			{
+				for (InGamePlayer playerB : inGameTeamB.getInGamePlayers())
+				{
+					if (playerB.isAlive())
+					{
+						duel(playerA, playerB);
+						
+						//Si le joueur A est mort, on passe a un autre joueur A:
+						if (!playerA.isAlive())
+						{
+							break;
+						}
+					}
+				}
+				if (allPlayersAreDead(inGameTeamB))
+				{
+					//roundResult(inGameTeamA,inGameTeamB);
+					break;
+				}
+			}
+		}
+		if (allPlayersAreDead(inGameTeamA))
+		{
+			roundResult(inGameTeamB,inGameTeamA);
+		}
+		else if (allPlayersAreDead(inGameTeamB))
+		{
+			roundResult(inGameTeamA,inGameTeamB);
+		}
+	}
+	
+	private void duel(InGamePlayer playerA, InGamePlayer playerB)
+	{
+		//Le joueur avec le plus haut rating tire en premier:
+		InGamePlayer currentShooter;
+		InGamePlayer currentVictim;
+		if (playerA.getRating() > playerB.getRating())
+		{
+			currentShooter = playerA;
+			currentVictim = playerB;
+		}
+		else if (playerA.getRating() < playerB.getRating())
+		{
+			currentShooter = playerB;
+			currentVictim = playerA;
 		}
 		else
 		{
-			inGameTeamA.looseRound();
-			inGameTeamB.winRound();
-			showLog("Round over - Winner: "+ inGameTeamB.getSide()+"("+inGameTeamA.getScore()+" - "+inGameTeamB.getScore()+")- Ennemy eliminated");
+			Random rd = new Random();
+			if (rd.nextBoolean())
+			{
+				currentShooter = playerB;
+				currentVictim = playerA;
+			}
+			else
+			{
+				currentShooter = playerA;
+				currentVictim = playerB;
+			}
+		}
+		System.out.println(currentShooter.getNickname()+" tire en premier sur "+currentVictim.getNickname());
+		
+		//Ils tirent chacun leur tour jusqu'à ce qu'un meurt:
+		while (playerA.isAlive() && playerB.isAlive())
+		{
+			shootAt(currentShooter, currentVictim);
+			
+			System.out.println("HP restants: "+playerA.getNickname()+"="+playerA.getHP()+" / "+playerB.getNickname()+"="+playerB.getHP());
+			
+			//On inverse les roles:
+			InGamePlayer tmp = currentShooter;
+			currentShooter = currentVictim;
+			currentVictim = tmp;
+		}
+		
+		//On affiche qui a gagné le duel:
+		if (playerA.isAlive()) {
+			showLog(playerA.getNickname()+" kill "+playerB.getNickname());
+			System.out.println(playerB.getNickname()+" est mort.");
+		}
+		else {
+			showLog(playerB.getNickname()+" kill "+playerA.getNickname());
+			System.out.println(playerA.getNickname()+" est mort.");
 		}
 	}
+	
+	private void shootAt(InGamePlayer playerA, InGamePlayer playerB)
+	{
+		System.out.println(playerA.getNickname()+" tire sur "+playerB.getNickname()+" !");
+		float headshotPercentage = playerA.getHeadshotPercentage();
+		
+		Random rd = new Random();
+	    float result = rd.nextFloat()*100;
+	    
+	    if (result <= headshotPercentage)
+	    {
+	    	System.out.println("HEADSHOT !");
+	    	playerB.takeDamages(100);
+	    }
+	    else
+	    {
+	    	playerB.takeDamages(25);
+	    }
+	}
+	
+	private boolean allPlayersAreDead(InGameTeam inGameTeam)
+	{
+		boolean allPlayersAreDead = true;
+		for (InGamePlayer inGamePlayer : inGameTeam.getInGamePlayers())
+		{
+			if (inGamePlayer.isAlive())
+			{
+				allPlayersAreDead = false;
+			}
+		}
+		System.out.println("allPlayersAreDead -> "+allPlayersAreDead);
+		return allPlayersAreDead;
+	}
 
+	private void roundResult(InGameTeam roundWinner, InGameTeam roundLooser)
+	{
+		roundWinner.winRound();
+		roundLooser.looseRound();
+		
+		showLog("Round over - Winner: "+ roundWinner.getSide()+"("+roundWinner.getScore()+" - "+roundLooser.getScore()+")- Ennemy eliminated");
+	}
+	
 	@Override
 	public void startEvent() 
 	{
@@ -169,7 +297,11 @@ public class EventMatch implements DayEvent {
 			//chooseStrategy(inGameTeamA);
 			//chooseStrategy(inGameTeamB);
 			
-			playRound();
+			//playRound();
+			playRoundV2();
+			
+			endRound(inGameTeamA);
+			endRound(inGameTeamB);
 			
 			roundJoues++;
 			
@@ -183,6 +315,15 @@ public class EventMatch implements DayEvent {
 		else
 		{
 			showLog("Match terminé");
+		}
+	}
+	
+	private void endRound(InGameTeam team)
+	{
+		//Reset les HP des joueurs:
+		for (InGamePlayer player : team.getInGamePlayers())
+		{
+			player.setHP(100);
 		}
 	}
 	
