@@ -1,6 +1,8 @@
 package controller.dayEvents;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import generated.MainFrame;
 import modele.GameData;
@@ -25,6 +27,9 @@ public class EventMatch implements DayEvent {
 	
 	private int roundJoues = 0;
 	
+	private final int roundDuration = 115;
+	private int timeRemaining = roundDuration;
+	
 	public EventMatch(GameData gameData, MainFrame mainFrame, Team teamA, Team teamB) //TODO Virer les team du constructeur.
 	{
 		this.gameData = gameData;
@@ -38,6 +43,9 @@ public class EventMatch implements DayEvent {
 	{
 		inGameTeamA.setSide(InGameTeam.SIDE.T);
 		inGameTeamB.setSide(InGameTeam.SIDE.CT);
+		
+		showLog(inGameTeamA.getName()+" choose side "+inGameTeamA.getSide().toString());
+		showLog(inGameTeamB.getName()+" choose side "+inGameTeamB.getSide().toString());
 	}
 	
 	private boolean checkVictory()
@@ -120,6 +128,7 @@ public class EventMatch implements DayEvent {
 		team.setCurrentStrategy(team.getInGameStrategies().get(0));
 	}
 	
+	@Deprecated
 	private void playRound()
 	{
 		float averageTeamARating = 0;
@@ -177,6 +186,68 @@ public class EventMatch implements DayEvent {
 		}
 	}
 	
+	private void playRoundV3()
+	{
+		//On lance un timer:
+		Timer timer = new Timer();
+		RoundTask roundTask = new RoundTask(mainFrame, this);
+		timer.schedule(roundTask, 0, 2*1000);
+	}
+	
+	class RoundTask extends TimerTask
+	{
+		private MainFrame mainFrame;
+		private EventMatch eventMatch;
+		
+		public RoundTask(MainFrame mainFrame, EventMatch eventMatch)
+		{
+			this.mainFrame = mainFrame;
+			this.eventMatch = eventMatch;
+		}
+		
+		@Override
+		public void run() 
+		{
+			System.out.println("TOP");
+			
+			//A chaque tick, on fait un duel:
+			boolean duelTermine = false;
+			for (InGamePlayer playerA : inGameTeamA.getInGamePlayers())
+			{
+				if (playerA.isAlive())
+				{
+					for (InGamePlayer playerB : inGameTeamB.getInGamePlayers())
+					{
+						if (playerB.isAlive())
+						{
+							duel(playerA, playerB);
+							duelTermine = true;
+							break;
+						}
+					}
+					if (duelTermine)
+						break;
+				}
+			}
+			
+			//On vérifie si une equipe a gagné et on annule la tache:
+			if (allPlayersAreDead(inGameTeamA))
+			{
+				roundResult(inGameTeamB,inGameTeamA);
+				this.cancel();
+			}
+			else if (allPlayersAreDead(inGameTeamB))
+			{
+				roundResult(inGameTeamA,inGameTeamB);
+				this.cancel();
+			}
+			
+			//Mise à jour du temps restant:
+			timeRemaining--;
+			mainFrame.getPanelMatch().getPanelMatchLogs().update(eventMatch);
+		}
+	}
+	
 	private void duel(InGamePlayer playerA, InGamePlayer playerB)
 	{
 		//Le joueur avec le plus haut rating tire en premier:
@@ -230,6 +301,9 @@ public class EventMatch implements DayEvent {
 			showLog(playerB.getNickname()+" kill "+playerA.getNickname());
 			System.out.println(playerA.getNickname()+" est mort.");
 		}
+		
+		//On met à jour la vue:
+		mainFrame.getPanelMatch().update(this);
 	}
 	
 	private void shootAt(InGamePlayer playerA, InGamePlayer playerB)
@@ -282,40 +356,60 @@ public class EventMatch implements DayEvent {
 		if (!isStarted)
 		{
 			chooseSide();
+			
 			isStarted = true;
-		}
-		
-		//Si le match n'est pas terminé on joue un round:
-		if (!isFinished) 
-		{
-			System.out.println("Round "+roundJoues+": "+inGameTeamA.getScore()+" - "+inGameTeamB.getScore());
-			showLog("Round started.");
-			
-			buyRound(inGameTeamA);
-			buyRound(inGameTeamB);
-			
-			//chooseStrategy(inGameTeamA);
-			//chooseStrategy(inGameTeamB);
-			
-			//playRound();
-			playRoundV2();
-			
-			endRound(inGameTeamA);
-			endRound(inGameTeamB);
-			
-			roundJoues++;
-			
-			if (checkHalfTime())
-			{
-				changeSides();
-			}
-			
-			isFinished = checkVictory();
 		}
 		else
 		{
-			showLog("Match terminé");
+			//Si le match n'est pas terminé on joue un round:
+			if (!isFinished) 
+			{
+				startRound();
+				
+				isFinished = checkVictory();
+				
+				//On met à jour la vue:
+				mainFrame.getPanelMatch().update(this);
+			}
+			else
+			{
+				showLog("Match terminé");
+			}
 		}
+	}
+	
+	private void startRound()
+	{
+		//Les equipes choisissent une stratégie:
+		//chooseStrategy(inGameTeamA);
+		//chooseStrategy(inGameTeamB);
+		
+		//Les joueurs font leurs achats:
+		buyRound(inGameTeamA);
+		buyRound(inGameTeamB);
+		
+		System.out.println("Round "+roundJoues+": "+inGameTeamA.getScore()+" - "+inGameTeamB.getScore());
+		showLog("Round started.");
+		
+		//playRound();
+		playRoundV3();
+		
+		showLog("Round ended.");
+		
+		//On reset toutes les valeurs des deux equipes:
+		endRound(inGameTeamA);
+		endRound(inGameTeamB);
+		
+		//Reset round timer:
+		timeRemaining = roundDuration;
+		
+		//Verifie le changement de side:
+		if (checkHalfTime())
+		{
+			changeSides();
+		}
+		
+		roundJoues++;
 	}
 	
 	private void endRound(InGameTeam team)
@@ -364,4 +458,8 @@ public class EventMatch implements DayEvent {
 	public void setInGameTeamB(InGameTeam inGameTeamB) {
 		this.inGameTeamB = inGameTeamB;
 	}
+
+	public int getTimeRemaining() {
+		return timeRemaining;
+	}	
 }

@@ -32,9 +32,9 @@ public class PanelMatchEquipe extends JPanel {
 		if (team.getSide() != null)
 		{
 			if (team.getSide().equals(SIDE.T))
-				this.setBackground(Color.YELLOW);
+				this.setBackground(new Color(196,173,110));
 			else
-				this.setBackground(Color.BLUE);
+				this.setBackground(new Color(74,117,181));
 		}
 		
 		//Mise à joueur des joueurs:

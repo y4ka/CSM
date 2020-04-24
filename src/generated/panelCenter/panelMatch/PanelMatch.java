@@ -50,4 +50,10 @@ public class PanelMatch extends JPanel {
 	public PanelMatchLogs getPanelMatchLogs() {
 		return panelMatchLogs;
 	}
+	public PanelMatchEquipe getPanelMatchEquipeA() {
+		return panelMatchEquipeA;
+	}
+	public PanelMatchEquipe getPanelMatchEquipeB() {
+		return panelMatchEquipeB;
+	}
 }

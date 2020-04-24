@@ -12,11 +12,13 @@ import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
+import java.awt.GridLayout;
 
 public class PanelMatchLogs extends JPanel {
 	private JLabel lblScore;
 	private JTextArea textAreaLogs;
 	private JScrollPane scrollPane;
+	private JLabel lblTime;
 
 	/**
 	 * Create the panel.
@@ -30,9 +32,14 @@ public class PanelMatchLogs extends JPanel {
 		lblScore.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblScore, BorderLayout.NORTH);
 		
+		lblTime = new JLabel("Time");
+		lblTime.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblTime, BorderLayout.SOUTH);
+		
 		textAreaLogs = new JTextArea();
 		scrollPane = new JScrollPane(textAreaLogs);
-		add(scrollPane, BorderLayout.CENTER);
+		add(scrollPane);
 	}
 
 	public void update(EventMatch match) 
@@ -41,6 +48,11 @@ public class PanelMatchLogs extends JPanel {
 		int scoreA = match.getInGameTeamA().getScore();
 		int scoreB = match.getInGameTeamB().getScore();
 		lblScore.setText(scoreA+" - "+scoreB);
+		
+		//Affiche du timer:
+		int time = match.getTimeRemaining();
+		int min = time/60;
+		lblTime.setText(min+":"+time%60);
 	}
 	public JTextArea getTextAreaLogs() {
 		return textAreaLogs;

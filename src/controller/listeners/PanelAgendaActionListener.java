@@ -22,9 +22,6 @@ public class PanelAgendaActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		if (e.getSource().equals(mainFrame.getBtnContinue()))
-		{
-			gameData.getAgenda().getCurrentDayEvent().startEvent();
-		}
+		
 	}
 }
