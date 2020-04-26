@@ -8,11 +8,6 @@ public class Day
 	{
 		
 	}
-	
-	public void startCurrentEvent()
-	{
-		dayEvent.startEvent();
-	}
 
 	public DayEvent getDayEvent() {
 		return dayEvent;

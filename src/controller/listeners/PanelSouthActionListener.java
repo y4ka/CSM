@@ -4,6 +4,8 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+
 import controller.dayEvents.DayEvent;
 import controller.dayEvents.EventMatch;
 import generated.MainFrame;
@@ -11,11 +13,11 @@ import modele.GameData;
 
 public class PanelSouthActionListener implements ActionListener {
 	
-	private boolean presentationMatch= false;
-	
 	//MVC
 	GameData gameData;
 	MainFrame mainFrame;
+	
+	JButton source;
 		
 	public PanelSouthActionListener(GameData gameData, MainFrame mainFrame)
 	{
@@ -27,28 +29,23 @@ public class PanelSouthActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
+		source = (JButton) e.getSource();
+		
 		if (e.getSource().equals(mainFrame.getBtnContinue()))
 		{
 			nextAction();
 		}
 	}
 	
-	public void nextAction()
+	private void nextAction()
 	{
-		//On regarde si tous les mails avec action on été répondus:
+		//On verifie les actions de la journee:
 		boolean messagerieOK = actionMessagerie();
+		boolean actionOK = actionEvents();
 		
-		//Quand tous les mails ont été répondus, on regarde si il y a un event:
-		if (messagerieOK)
-		{
-			boolean eventsOK = actionEvents();
-			
-			//Quand tous les evenements ont été répondus, on passe au jour suivant:
-			if (eventsOK)
-			{
-				nextDay();
-			}
-		}
+		//Si toutes les actions ont été effectuées, on passe au jour suivant:
+		if (messagerieOK && actionOK)
+			nextDay();
 	}
 	
 	private boolean actionMessagerie()
@@ -61,34 +58,40 @@ public class PanelSouthActionListener implements ActionListener {
 		//On récupère les evenements de la journée:
 		DayEvent event = gameData.getAgenda().getCurrentDayEvent();
 		
-		//Selon le type d'événement, l'IHM ne va pas etre la meme:
-		switch(event.getEventType())
+		if (!event.isFinished())
 		{
-		case MATCH:
-			eventMatch((EventMatch)event);
-			break;
-		default:
-			break;
+			switch(event.getEventType())
+			{
+			case MATCH:
+				eventMatch((EventMatch)event);
+				break;
+			default:
+				break;
+			}
+			return false;
 		}
-		return true;
+		else
+		{
+			return true;
+		}
 	}
 	
 	private void nextDay()
 	{
-		
+		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
+		cl.show(mainFrame.getPanelCenter(), "panelAgenda");
 	}
 	
 	private void eventMatch(EventMatch match)
 	{
-		if (!presentationMatch)
+		if (!match.isBrifed())
 		{
 			affichagePresentationMatch(match);
-			presentationMatch = true;
+			match.setBrifed(true);
 		}
 		else
 		{
 			affichageMatch(match);
-			presentationMatch = false;
 		}
 	}
 	

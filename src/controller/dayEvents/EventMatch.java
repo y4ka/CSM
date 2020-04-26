@@ -13,14 +13,11 @@ import modele.InGamePlayer.SECONDARY;
 import modele.InGameTeam;
 import modele.Team;
 
-public class EventMatch implements DayEvent {
+public class EventMatch extends DayEvent {
 	
 	// MVC
 	GameData gameData;
 	MainFrame mainFrame;
-	
-	private boolean isStarted = false;
-	private boolean isFinished = false;
 	
 	private InGameTeam inGameTeamA;
 	private InGameTeam inGameTeamB;
@@ -353,20 +350,20 @@ public class EventMatch implements DayEvent {
 		System.out.println("startEvent MATCH");
 		
 		//Si le match n'est pas lancé, on le lance:
-		if (!isStarted)
+		if (!started)
 		{
 			chooseSide();
 			
-			isStarted = true;
+			started = true;
 		}
 		else
 		{
 			//Si le match n'est pas terminé on joue un round:
-			if (!isFinished) 
+			if (!finished) 
 			{
 				startRound();
 				
-				isFinished = checkVictory();
+				finished = checkVictory();
 				
 				//On met à jour la vue:
 				mainFrame.getPanelMatch().update(this);

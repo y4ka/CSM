@@ -2,6 +2,9 @@ package generated.panelCenter.panelMatch;
 
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+
+import controller.dayEvents.EventMatch;
+
 import javax.swing.JButton;
 
 public class PanelMatchActions extends JPanel {
@@ -20,5 +23,17 @@ public class PanelMatchActions extends JPanel {
 
 	public JButton getBtnStart() {
 		return btnStart;
+	}
+	
+	public void update(EventMatch match)
+	{
+		if (match.isFinished())
+		{
+			btnStart.setEnabled(false);
+		}
+		else
+		{
+			btnStart.setEnabled(true);
+		}
 	}
 }

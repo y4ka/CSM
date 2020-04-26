@@ -43,6 +43,7 @@ public class PanelMatch extends JPanel {
 		panelMatchEquipeA.update(match.getInGameTeamA());
 		panelMatchEquipeB.update(match.getInGameTeamB());
 		panelMatchLogs.update(match);
+		panelMatchActions.update(match);
 	}
 	public PanelMatchActions getPanelMatchActions() {
 		return panelMatchActions;

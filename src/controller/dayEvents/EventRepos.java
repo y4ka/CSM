@@ -1,6 +1,6 @@
 package controller.dayEvents;
 
-public class EventRepos implements DayEvent {
+public class EventRepos extends DayEvent {
 
 	@Override
 	public void startEvent() 
