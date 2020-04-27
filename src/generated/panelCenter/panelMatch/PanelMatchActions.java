@@ -29,11 +29,8 @@ public class PanelMatchActions extends JPanel {
 	{
 		if (match.isFinished())
 		{
+			btnStart.setText("Match over");
 			btnStart.setEnabled(false);
-		}
-		else
-		{
-			btnStart.setEnabled(true);
 		}
 	}
 }

@@ -57,4 +57,8 @@ public class PanelMatchLogs extends JPanel {
 	public JTextArea getTextAreaLogs() {
 		return textAreaLogs;
 	}
+
+	public JScrollPane getScrollPane() {
+		return scrollPane;
+	}	
 }

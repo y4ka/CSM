@@ -16,8 +16,6 @@ public class PanelSouthActionListener implements ActionListener {
 	//MVC
 	GameData gameData;
 	MainFrame mainFrame;
-	
-	JButton source;
 		
 	public PanelSouthActionListener(GameData gameData, MainFrame mainFrame)
 	{
@@ -29,8 +27,6 @@ public class PanelSouthActionListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		source = (JButton) e.getSource();
-		
 		if (e.getSource().equals(mainFrame.getBtnContinue()))
 		{
 			nextAction();

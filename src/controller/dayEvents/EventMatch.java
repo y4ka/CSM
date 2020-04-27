@@ -4,6 +4,8 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JScrollBar;
+
 import generated.MainFrame;
 import modele.GameData;
 import modele.InGamePlayer;
@@ -52,11 +54,13 @@ public class EventMatch extends DayEvent {
 		{
 			victory = true;
 			System.out.println(inGameTeamA.getName()+" win the game.");
+			showLog(inGameTeamA.getName()+" win the game.");
 		}
 		else if (inGameTeamB.getScore() >= 16)
 		{
 			victory = true;
 			System.out.println(inGameTeamB.getName()+" win the game.");
+			showLog(inGameTeamB.getName()+" win the game.");
 		}
 		return victory;
 	}
@@ -147,6 +151,7 @@ public class EventMatch extends DayEvent {
 			roundResult(inGameTeamB, inGameTeamA);
 	}
 	
+	@Deprecated
 	private void playRoundV2()
 	{
 		for (InGamePlayer playerA : inGameTeamA.getInGamePlayers())
@@ -185,10 +190,12 @@ public class EventMatch extends DayEvent {
 	
 	private void playRoundV3()
 	{
+		showLog("Round started.");
+		
 		//On lance un timer:
 		Timer timer = new Timer();
 		RoundTask roundTask = new RoundTask(mainFrame, this);
-		timer.schedule(roundTask, 0, 2*1000);
+		timer.schedule(roundTask, 0, 75);
 	}
 	
 	class RoundTask extends TimerTask
@@ -205,7 +212,8 @@ public class EventMatch extends DayEvent {
 		@Override
 		public void run() 
 		{
-			System.out.println("TOP");
+			//On désactive le bouton pour ne pas lancer deux rounds simultanément:
+			mainFrame.getPanelMatch().getPanelMatchActions().getBtnStart().setEnabled(false);
 			
 			//A chaque tick, on fait un duel:
 			boolean duelTermine = false;
@@ -232,11 +240,13 @@ public class EventMatch extends DayEvent {
 			{
 				roundResult(inGameTeamB,inGameTeamA);
 				this.cancel();
+				mainFrame.getPanelMatch().getPanelMatchActions().getBtnStart().setEnabled(true);
 			}
 			else if (allPlayersAreDead(inGameTeamB))
 			{
 				roundResult(inGameTeamA,inGameTeamB);
 				this.cancel();
+				mainFrame.getPanelMatch().getPanelMatchActions().getBtnStart().setEnabled(true);
 			}
 			
 			//Mise à jour du temps restant:
@@ -341,7 +351,7 @@ public class EventMatch extends DayEvent {
 		roundWinner.winRound();
 		roundLooser.looseRound();
 		
-		showLog("Round over - Winner: "+ roundWinner.getSide()+"("+roundWinner.getScore()+" - "+roundLooser.getScore()+")- Ennemy eliminated");
+		showLog("Round over - Winner: "+ roundWinner.getSide()+"("+roundWinner.getScore()+" - "+roundLooser.getScore()+")- Ennemy eliminated\n");
 	}
 	
 	@Override
@@ -368,15 +378,13 @@ public class EventMatch extends DayEvent {
 				//On met à jour la vue:
 				mainFrame.getPanelMatch().update(this);
 			}
-			else
-			{
-				showLog("Match terminé");
-			}
 		}
 	}
 	
 	private void startRound()
 	{
+		System.out.println("Round "+roundJoues+": "+inGameTeamA.getScore()+" - "+inGameTeamB.getScore());
+		
 		//Les equipes choisissent une stratégie:
 		//chooseStrategy(inGameTeamA);
 		//chooseStrategy(inGameTeamB);
@@ -385,13 +393,8 @@ public class EventMatch extends DayEvent {
 		buyRound(inGameTeamA);
 		buyRound(inGameTeamB);
 		
-		System.out.println("Round "+roundJoues+": "+inGameTeamA.getScore()+" - "+inGameTeamB.getScore());
-		showLog("Round started.");
-		
-		//playRound();
+		//On joue le round:
 		playRoundV3();
-		
-		showLog("Round ended.");
 		
 		//On reset toutes les valeurs des deux equipes:
 		endRound(inGameTeamA);
@@ -421,6 +424,8 @@ public class EventMatch extends DayEvent {
 	private void showLog(String log)
 	{
 		mainFrame.getPanelMatch().getPanelMatchLogs().getTextAreaLogs().append(log+"\n");
+		JScrollBar vertical = mainFrame.getPanelMatch().getPanelMatchLogs().getScrollPane().getVerticalScrollBar();
+		vertical.setValue( vertical.getMaximum() );
 	}
 
 	@Override

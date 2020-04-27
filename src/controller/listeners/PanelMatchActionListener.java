@@ -24,13 +24,16 @@ public class PanelMatchActionListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		//On recupere l'evenement en cours:
-		EventMatch match = (EventMatch) gameData.getAgenda().getCurrentDayEvent();
-		
-		//On lance l'evenement:
-		match.startEvent();
-		
-		//On met a jour la fenetre de match:
-		mainFrame.getPanelMatch().update(match);
+		if (e.getSource().equals(mainFrame.getPanelMatch().getPanelMatchActions().getBtnStart()))
+		{
+			//On recupere l'evenement en cours:
+			EventMatch match = (EventMatch) gameData.getAgenda().getCurrentDayEvent();
+			
+			//On lance l'evenement:
+			match.startEvent();
+			
+			//On met a jour la fenetre de match:
+			mainFrame.getPanelMatch().update(match);
+		}
 	}
 }
