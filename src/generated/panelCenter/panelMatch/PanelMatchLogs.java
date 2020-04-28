@@ -53,6 +53,10 @@ public class PanelMatchLogs extends JPanel {
 		int time = match.getTimeRemaining();
 		int min = time/60;
 		lblTime.setText(min+":"+time%60);
+		
+		//Si le match est terminé, on clear les logs:
+		if (match.isFinished())
+			textAreaLogs.setText("");
 	}
 	public JTextArea getTextAreaLogs() {
 		return textAreaLogs;

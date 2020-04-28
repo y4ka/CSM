@@ -35,10 +35,16 @@ public class GameManager
 	
 	private void generateEvents()
 	{
+		//TODO entre le moment ou le match est cree et ou il est joue, les equipes ont change donc systeme d'ID et recuperation au lancement de l'event ?
 		Team teamA = gameData.getMonEquipe();
 		Team teamB = gameData.getTeam(1);
 		EventMatch test = new EventMatch(gameData, mainFrame, teamA, teamB);
 		gameData.getAgenda().addEventToCalendar(test, gameData.getAgenda().getCurrentDate());
+		
+		Team teamC = gameData.getMonEquipe();
+		Team teamD = gameData.getTeam(2);
+		EventMatch test2 = new EventMatch(gameData, mainFrame, teamC, teamD);
+		gameData.getAgenda().addEventToCalendar(test2, gameData.getAgenda().getCurrentDate().plusDays(2));
 	}
 	
 	private void generateMessages()

@@ -8,6 +8,7 @@ import javax.swing.JButton;
 
 import controller.dayEvents.DayEvent;
 import controller.dayEvents.EventMatch;
+import controller.dayEvents.EventRepos;
 import generated.MainFrame;
 import modele.GameData;
 
@@ -61,6 +62,8 @@ public class PanelSouthActionListener implements ActionListener {
 			case MATCH:
 				eventMatch((EventMatch)event);
 				break;
+			case REPOS:
+				eventRepos((EventRepos)event);
 			default:
 				break;
 			}
@@ -74,6 +77,12 @@ public class PanelSouthActionListener implements ActionListener {
 	
 	private void nextDay()
 	{
+		//On passe au jour suivant:
+		gameData.getAgenda().nextDay();
+		
+		//On affiche l'agenda:
+		mainFrame.getPanelAgenda().update(gameData);
+		
 		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
 		cl.show(mainFrame.getPanelCenter(), "panelAgenda");
 	}
@@ -93,6 +102,9 @@ public class PanelSouthActionListener implements ActionListener {
 	
 	private void affichagePresentationMatch(EventMatch match)
 	{
+		//On crée la InGameTeam:
+		match.createInGameTeam();
+		
 		//Met à jour les données du panneau PresentationMatch:
 		mainFrame.getPanelPresentationMatch().update(match);
 				
@@ -109,5 +121,10 @@ public class PanelSouthActionListener implements ActionListener {
 		//Affiche le panneau une fois qu'il est a jour:
 		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
 		cl.show(mainFrame.getPanelCenter(), "panelMatch");
+	}
+	
+	private void eventRepos(EventRepos repos)
+	{
+		repos.setFinished(true);
 	}
 }

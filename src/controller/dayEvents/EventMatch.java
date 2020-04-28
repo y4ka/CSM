@@ -21,9 +21,14 @@ public class EventMatch extends DayEvent {
 	GameData gameData;
 	MainFrame mainFrame;
 	
+	private Team teamA;
+	private Team teamB;
+	
 	private InGameTeam inGameTeamA;
 	private InGameTeam inGameTeamB;
 	
+	private final int roundVictoire = 5;
+	private final int roundHalf = 4;
 	private int roundJoues = 0;
 	
 	private final int roundDuration = 115;
@@ -34,8 +39,21 @@ public class EventMatch extends DayEvent {
 		this.gameData = gameData;
 		this.mainFrame = mainFrame;
 		
-		this.inGameTeamA = teamA.getInGameTeam();
-		this.inGameTeamB = teamB.getInGameTeam();
+		/*
+		 * A la creation de l'evenement, c'est une equipe qu'on invite, on ne sait pas encore quels
+		 * InGamePlayers seront selectionnés lorsque l'événement sera joué.
+		 */
+		this.teamA = teamA;
+		this.teamB = teamB;
+	}
+	
+	/*
+	 * Quand la lineup pour le match est fixée, on crée la InGameTeam:
+	 */
+	public void createInGameTeam()
+	{
+		this.inGameTeamA = new InGameTeam(teamA);
+		this.inGameTeamB = new InGameTeam(teamB);
 	}
 	
 	private void chooseSide()
@@ -50,13 +68,13 @@ public class EventMatch extends DayEvent {
 	private boolean checkVictory()
 	{
 		boolean victory = false;
-		if (inGameTeamA.getScore() >= 16)
+		if (inGameTeamA.getScore() >= roundVictoire)
 		{
 			victory = true;
 			System.out.println(inGameTeamA.getName()+" win the game.");
 			showLog(inGameTeamA.getName()+" win the game.");
 		}
-		else if (inGameTeamB.getScore() >= 16)
+		else if (inGameTeamB.getScore() >= roundVictoire)
 		{
 			victory = true;
 			System.out.println(inGameTeamB.getName()+" win the game.");
@@ -68,7 +86,7 @@ public class EventMatch extends DayEvent {
 	private boolean checkHalfTime()
 	{
 		boolean halfTime = false;
-		if (roundJoues == 15)
+		if (roundJoues == roundHalf)
 		{
 			halfTime = true;
 		}
@@ -129,65 +147,6 @@ public class EventMatch extends DayEvent {
 		team.setCurrentStrategy(team.getInGameStrategies().get(0));
 	}
 	
-	@Deprecated
-	private void playRound()
-	{
-		float averageTeamARating = 0;
-		float averageTeamBRating = 0;
-		
-		for (int i = 0 ; i < 5 ; i++)
-		{
-			averageTeamARating += inGameTeamA.getInGamePlayers()[i].getRating();
-			averageTeamBRating += inGameTeamB.getInGamePlayers()[i].getRating();
-		}
-		
-		averageTeamARating = averageTeamARating/5;
-		averageTeamBRating = averageTeamBRating/5;
-		
-		//Determination du vainqueur du round:
-		if (averageTeamARating >= averageTeamBRating)
-			roundResult(inGameTeamA, inGameTeamB);
-		else
-			roundResult(inGameTeamB, inGameTeamA);
-	}
-	
-	@Deprecated
-	private void playRoundV2()
-	{
-		for (InGamePlayer playerA : inGameTeamA.getInGamePlayers())
-		{
-			if (playerA.isAlive())
-			{
-				for (InGamePlayer playerB : inGameTeamB.getInGamePlayers())
-				{
-					if (playerB.isAlive())
-					{
-						duel(playerA, playerB);
-						
-						//Si le joueur A est mort, on passe a un autre joueur A:
-						if (!playerA.isAlive())
-						{
-							break;
-						}
-					}
-				}
-				if (allPlayersAreDead(inGameTeamB))
-				{
-					//roundResult(inGameTeamA,inGameTeamB);
-					break;
-				}
-			}
-		}
-		if (allPlayersAreDead(inGameTeamA))
-		{
-			roundResult(inGameTeamB,inGameTeamA);
-		}
-		else if (allPlayersAreDead(inGameTeamB))
-		{
-			roundResult(inGameTeamA,inGameTeamB);
-		}
-	}
-	
 	private void playRoundV3()
 	{
 		showLog("Round started.");
@@ -235,7 +194,7 @@ public class EventMatch extends DayEvent {
 				}
 			}
 			
-			//On vérifie si une equipe a gagné et on annule la tache:
+			//On vérifie si une equipe a gagné le round et on annule la tache:
 			if (allPlayersAreDead(inGameTeamA))
 			{
 				roundResult(inGameTeamB,inGameTeamA);
@@ -251,7 +210,7 @@ public class EventMatch extends DayEvent {
 			
 			//Mise à jour du temps restant:
 			timeRemaining--;
-			mainFrame.getPanelMatch().getPanelMatchLogs().update(eventMatch);
+			mainFrame.getPanelMatch().update(eventMatch);
 		}
 	}
 	
@@ -342,7 +301,7 @@ public class EventMatch extends DayEvent {
 				allPlayersAreDead = false;
 			}
 		}
-		System.out.println("allPlayersAreDead -> "+allPlayersAreDead);
+		System.out.println("allPlayersAreDead ("+inGameTeam.getName()+") -> "+allPlayersAreDead);
 		return allPlayersAreDead;
 	}
 
@@ -442,7 +401,7 @@ public class EventMatch extends DayEvent {
 
 	@Override
 	public String getEventDescription() {
-		return inGameTeamA.getName()+" vs "+inGameTeamB.getName();
+		return teamA.getName()+" vs "+teamB.getName();
 	}
 
 	public InGameTeam getInGameTeamA() {

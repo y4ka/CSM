@@ -27,6 +27,11 @@ public class Agenda
 		//A chaque fois qu'un getter est appelé sur l'agenda et que le jour n'existe pas, on l'ajoute.
 	}
 	
+	public void nextDay()
+	{
+		currentDate = currentDate.plusDays(1);
+	}
+	
 	// === GETTERS ====
 	
 	public DayEvent getCurrentDayEvent()
