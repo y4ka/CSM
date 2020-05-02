@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import controller.EmailGenerator;
 import controller.dayEvents.DayEvent;
 import controller.dayEvents.EventMatch;
 import controller.dayEvents.EventRepos;
@@ -71,6 +72,10 @@ public class PanelSouthActionListener implements ActionListener {
 		}
 		else
 		{
+			//Envoi du mail compte rendu.
+			EmailGenerator test = new EmailGenerator(gameData, mainFrame);
+			test.endEventMail(event);
+			
 			return true;
 		}
 	}

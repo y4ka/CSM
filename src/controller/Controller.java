@@ -1,6 +1,5 @@
 package controller;
 
-import controller.listeners.PanelAgendaActionListener;
 import controller.listeners.PanelLineupActionListener;
 import controller.listeners.PanelMatchActionListener;
 import controller.listeners.PanelMenuActionListener;
@@ -19,7 +18,6 @@ public class Controller {
 	PanelMenuActionListener panelMenuActionListener;
 	PanelTactiquesActionListener panelTactiquesActionListener;
 	PanelLineupActionListener panelLineupActionListener;
-	PanelAgendaActionListener panelAgendaActionListener;
 	PanelSouthActionListener panelSouthActionListener;
 	PanelMatchActionListener panelMatchActionListener;
 	
@@ -33,7 +31,6 @@ public class Controller {
 		this.panelMenuActionListener = new PanelMenuActionListener(gameData, mainFrame);
 		this.panelTactiquesActionListener = new PanelTactiquesActionListener(gameData, mainFrame);
 		this.panelLineupActionListener = new PanelLineupActionListener(gameData, mainFrame);
-		this.panelAgendaActionListener = new PanelAgendaActionListener(gameData, mainFrame);
 		this.panelSouthActionListener = new PanelSouthActionListener(gameData, mainFrame);
 		this.panelMatchActionListener = new PanelMatchActionListener(gameData, mainFrame);
 	}
@@ -65,9 +62,6 @@ public class Controller {
 		mainFrame.getComboBoxLineUpPlayer5().addActionListener(panelLineupActionListener);
 		
 		mainFrame.getBtnSauvegarderLineUp().addActionListener(panelLineupActionListener);
-		
-		//panelAgendaActionListener
-		//mainFrame.getBtnPanelAgendaLancer().addActionListener(panelAgendaActionListener);
 		
 		//panelMatchActionListener
 		mainFrame.getPanelMatch().getPanelMatchActions().getBtnStart().addActionListener(panelMatchActionListener);

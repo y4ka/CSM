@@ -6,6 +6,7 @@ import java.util.TimerTask;
 
 import javax.swing.JScrollBar;
 
+import controller.EmailGenerator;
 import generated.MainFrame;
 import modele.GameData;
 import modele.InGamePlayer;

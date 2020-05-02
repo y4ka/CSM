@@ -11,15 +11,8 @@ public abstract class DayEvent {
 	protected boolean brifed;
 	protected boolean debrifed;
 	
-	public void startEvent()
-	{
-		
-	}
-	
-	public void endEvent()
-	{
-		
-	}
+	public abstract void startEvent();
+	public abstract void endEvent();
 	
 	public DAY_EVENTS getEventType()
 	{
