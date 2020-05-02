@@ -30,12 +30,16 @@ public class PanelAgenda extends JPanel implements Observer {
 	public void update(GameData gameData) 
 	{	
 		Agenda agenda = gameData.getAgenda();
+		final LocalDate currentDate = agenda.getCurrentDate();
+		
+		//On met a jour le titre avec le mois en cours:
+		TitledBorder titledBorder = (TitledBorder) this.getBorder();
+		titledBorder.setTitle("Agenda - "+currentDate.getMonth());
 		
 		//On supprime les PanelAgendaDay déjà présents:
 		this.removeAll();
 		
 		//On crée les PanelAgendaDay:
-		final LocalDate currentDate = agenda.getCurrentDate(); 
 		int numberOfDays = currentDate.lengthOfMonth();
 		for (int i = 1 ; i <= numberOfDays ; i++)
 		{
@@ -50,5 +54,7 @@ public class PanelAgenda extends JPanel implements Observer {
 			
 			panelAgendaDay.update(date, day, isCurrentDate);
 		}
+		
+		this.repaint();
 	}
 }
