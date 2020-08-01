@@ -1,5 +1,7 @@
 package controller.dayEvents;
 
+import java.awt.Color;
+
 public abstract class DayEvent {
 
 	public enum DAY_EVENTS {REPOS, ENTRAINEMENT_COLLECTIF, ENRAINEMENT_INDIVIDUEL, MATCH, COHESION, SPORT, DEPLACEMENT};
@@ -10,6 +12,7 @@ public abstract class DayEvent {
 	protected boolean finished;
 	protected boolean brifed;
 	protected boolean debrifed;
+	protected Color eventColor;
 	
 	public abstract void startEvent();
 	public abstract void endEvent();
@@ -54,5 +57,9 @@ public abstract class DayEvent {
 
 	public void setDebrifed(boolean debrifed) {
 		this.debrifed = debrifed;
+	}
+	
+	public Color getEventColor() {
+		return eventColor;
 	}
 }

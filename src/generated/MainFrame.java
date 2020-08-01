@@ -25,10 +25,11 @@ import generated.panelCenter.panelEffectif.PanelEffectif;
 import generated.panelCenter.panelMessagerie.PanelMessagerie;
 import generated.panelCenter.panelPresentationMatch.PanelPresentationMatch;
 import generated.panelCenter.panelMatch.PanelMatch;
+import java.awt.Frame;
 
 public class MainFrame {
 
-	private JFrame frame;
+	private JFrame frmCsgoManager;
 	private JPanel panelCenter;
 	private JPanel panelBudget;
 	private JPanel panelEntrainement;
@@ -70,12 +71,14 @@ public class MainFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 650, 450);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmCsgoManager = new JFrame();
+		frmCsgoManager.setExtendedState(Frame.MAXIMIZED_BOTH);
+		frmCsgoManager.setTitle("CS:GO Manager 2020");
+		frmCsgoManager.setBounds(100, 100, 650, 450);
+		frmCsgoManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		panelCenter = new JPanel();
-		frame.getContentPane().add(panelCenter, BorderLayout.CENTER);
+		frmCsgoManager.getContentPane().add(panelCenter, BorderLayout.CENTER);
 		panelCenter.setLayout(new CardLayout(0, 0));
 		
 		panelAgenda = new PanelAgenda();
@@ -164,18 +167,18 @@ public class MainFrame {
 		panelCenter.add(panelMatch, "panelMatch");
 		
 		panelSouth = new JPanel();
-		frame.getContentPane().add(panelSouth, BorderLayout.SOUTH);
+		frmCsgoManager.getContentPane().add(panelSouth, BorderLayout.SOUTH);
 		panelSouth.setLayout(new BorderLayout(0, 0));
 		
 		btnContinue = new JButton("Continuer");
 		panelSouth.add(btnContinue, BorderLayout.EAST);
 		
 		panelMenu = new PanelMenu();
-		frame.getContentPane().add(panelMenu, BorderLayout.WEST);
+		frmCsgoManager.getContentPane().add(panelMenu, BorderLayout.WEST);
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmCsgoManager;
 	}
 	public JPanel getPanelCenter() {
 		return panelCenter;

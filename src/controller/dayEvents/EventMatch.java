@@ -1,5 +1,6 @@
 package controller.dayEvents;
 
+import java.awt.Color;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -403,6 +404,11 @@ public class EventMatch extends DayEvent {
 	@Override
 	public String getEventDescription() {
 		return teamA.getName()+" vs "+teamB.getName();
+	}
+	
+	@Override
+	public Color getEventColor() {
+		return Color.ORANGE;
 	}
 
 	public InGameTeam getInGameTeamA() {

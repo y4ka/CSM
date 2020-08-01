@@ -15,24 +15,26 @@ import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.time.LocalDate;
 import java.awt.BorderLayout;
+import javax.swing.BoxLayout;
 
 public class PanelAgendaDay extends JPanel {
-	private JLabel lblActivity1;
+	private JLabel lblActivityName;
+	private JPanel panelAgendaDayActivity;
 
 	/**
 	 * Create the panel.
 	 */
 	public PanelAgendaDay() {
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "day", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		setLayout(new GridLayout(0, 1, 0, 0));
+		setLayout(new BorderLayout(0, 0));
 		
-		JPanel panelAgendaDayActivity = new JPanel();
+		panelAgendaDayActivity = new JPanel();
 		panelAgendaDayActivity.setBackground(Color.LIGHT_GRAY);
-		add(panelAgendaDayActivity);
+		add(panelAgendaDayActivity, BorderLayout.NORTH);
 		panelAgendaDayActivity.setLayout(new BorderLayout(0, 0));
 		
-		lblActivity1 = new JLabel("ActivityName");
-		panelAgendaDayActivity.add(lblActivity1);
+		lblActivityName = new JLabel("ActivityName");
+		panelAgendaDayActivity.add(lblActivityName);
 
 	}
 
@@ -44,21 +46,23 @@ public class PanelAgendaDay extends JPanel {
 		if (dayEvent != null)
 		{
 			String eventDescription = dayEvent.getEventDescription();
-			lblActivity1.setText(eventDescription);
+			lblActivityName.setText(eventDescription);
+			panelAgendaDayActivity.setBackground(dayEvent.getEventColor());
 		}
 		else
 		{
-			lblActivity1.setText("PAS D'ACTIVITE");
-		}
-		
-		//On met à jour la couleur du jour courant:
-		if (isCurrentDate)
-		{
-			this.setBackground(Color.RED);
+			lblActivityName.setText("PAS D'ACTIVITE");
 		}
 		
 		//On met a jour le titre avec la date:
 		TitledBorder titledBorder = (TitledBorder) this.getBorder();
 		titledBorder.setTitle(""+date.getDayOfMonth());
+		
+		//On met à jour la couleur du jour courant:
+		if (isCurrentDate)
+		{
+			//this.setBackground(Color.RED);
+			titledBorder.setTitleColor(Color.RED);
+		}
 	}
 }

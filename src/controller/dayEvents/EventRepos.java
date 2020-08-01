@@ -1,5 +1,7 @@
 package controller.dayEvents;
 
+import java.awt.Color;
+
 public class EventRepos extends DayEvent {
 
 	@Override
@@ -23,5 +25,10 @@ public class EventRepos extends DayEvent {
 	@Override
 	public String getEventDescription() {
 		return "Repos";
+	}
+	
+	@Override
+	public Color getEventColor() {
+		return Color.GREEN;
 	}
 }
