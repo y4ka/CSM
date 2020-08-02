@@ -51,6 +51,10 @@ public class PanelMenuActionListener implements ActionListener {
 		{
 			this.btnLineupEvent();
 		}
+		else if (e.getSource().equals(mainFrame.getPanelMenu().getBtnRanking()))
+		{
+			this.btnRankingEvent();
+		}
 	}
 	
 	private void btnEquipeEvent()
@@ -100,6 +104,16 @@ public class PanelMenuActionListener implements ActionListener {
 		
 		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
 	    cl.show(mainFrame.getPanelCenter(), "panelLineUp");
+	}
+	
+	private void btnRankingEvent()
+	{
+		//Met à jour les données du panneau Ranking:
+		mainFrame.getPanelRanking().update(gameData);
+				
+		//Affiche le panneau une fois qu'il est a jour:
+		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
+	    cl.show(mainFrame.getPanelCenter(), "panelRanking");
 	}
 	
 	private void updateLineUpView()

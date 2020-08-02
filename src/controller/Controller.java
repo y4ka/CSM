@@ -44,6 +44,7 @@ public class Controller {
 		mainFrame.getPanelMenu().getBtnBudget().addActionListener(panelMenuActionListener);
 		mainFrame.getPanelMenu().getBtnTactiques().addActionListener(panelMenuActionListener);
 		mainFrame.getPanelMenu().getBtnLineup().addActionListener(panelMenuActionListener);
+		mainFrame.getPanelMenu().getBtnRanking().addActionListener(panelMenuActionListener);
 		
 		//panelTactiquesActionListener
 		mainFrame.getComboBoxTactiqueJoueur1().addActionListener(panelTactiquesActionListener);

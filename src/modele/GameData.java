@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Set;
 
 import controller.CsvFileHelper;
@@ -16,8 +17,9 @@ import controller.dayEvents.EventMatch;
 
 public class GameData 
 {
-	private Hashtable<Integer, Player> playerDatabase = new Hashtable<Integer, Player>();
-	private Hashtable<Integer, Team> teamDatabase = new Hashtable<Integer, Team>();
+	private HashMap<Integer, Player> playerDatabase = new HashMap<Integer, Player>();
+	private HashMap<Integer, Team> teamDatabase = new HashMap<Integer, Team>();
+	private ArrayList<Team> teamRanking = new ArrayList<Team>();
 	
 	private Team monEquipe;
 	private Agenda agenda = new Agenda();
@@ -188,5 +190,20 @@ public class GameData
 
 	public Messagerie getMessagerie() {
 		return messagerie;
+	}
+	
+	public HashMap<Integer, Team> getTeamDatabase()
+	{
+		return teamDatabase;
+	}
+	
+	public ArrayList<Team> getTeamRanking()
+	{
+		return teamRanking;
+	}
+	
+	public void setTeamRanking(ArrayList<Team> teamRanking)
+	{
+		this.teamRanking = teamRanking;
 	}
 }

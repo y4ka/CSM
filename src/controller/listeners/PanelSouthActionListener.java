@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import controller.EmailGenerator;
+import controller.RankingCalculator;
 import controller.dayEvents.DayEvent;
 import controller.dayEvents.EventMatch;
 import controller.dayEvents.EventRepos;
@@ -90,6 +91,10 @@ public class PanelSouthActionListener implements ActionListener {
 		
 		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
 		cl.show(mainFrame.getPanelCenter(), "panelAgenda");
+		
+		//On calcule le rating a la fin de chaque journee:
+		RankingCalculator rankingCalculator = new RankingCalculator(gameData, mainFrame);
+		rankingCalculator.calculateRanking();
 	}
 	
 	private void eventMatch(EventMatch match)

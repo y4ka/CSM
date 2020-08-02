@@ -18,6 +18,7 @@ public class PanelMenu extends JPanel {
 	private JButton btnMessagerie;
 	private JButton btnBudget;
 	private JButton btnEffectif;
+	private JButton btnRanking;
 	
 	/**
 	 * Create the panel.
@@ -42,6 +43,9 @@ public class PanelMenu extends JPanel {
 		
 		btnLineup = new JButton("LineUp");
 		add(btnLineup);
+		
+		btnRanking = new JButton("Ranking");
+		add(btnRanking);
 	}
 
 	public JButton getBtnAgenda() {
@@ -61,5 +65,8 @@ public class PanelMenu extends JPanel {
 	}
 	public JButton getBtnEquipe() {
 		return btnEffectif;
+	}
+	public JButton getBtnRanking() {
+		return btnRanking;
 	}
 }

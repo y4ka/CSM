@@ -26,6 +26,7 @@ import generated.panelCenter.panelMessagerie.PanelMessagerie;
 import generated.panelCenter.panelPresentationMatch.PanelPresentationMatch;
 import generated.panelCenter.panelMatch.PanelMatch;
 import java.awt.Frame;
+import generated.panelCenter.panelRanking.PanelRanking;
 
 public class MainFrame {
 
@@ -59,6 +60,7 @@ public class MainFrame {
 	private PanelPresentationMatch panelPresentationMatch;
 	private PanelMessagerie panelMessagerie;
 	private PanelMatch panelMatch;
+	private PanelRanking panelRanking;
 
 	/**
 	 * Create the application.
@@ -167,6 +169,9 @@ public class MainFrame {
 		panelMatch = new PanelMatch();
 		panelCenter.add(panelMatch, "panelMatch");
 		
+		panelRanking = new PanelRanking();
+		panelCenter.add(panelRanking, "panelRanking");
+		
 		panelSouth = new JPanel();
 		frmCsgoManager.getContentPane().add(panelSouth, BorderLayout.SOUTH);
 		panelSouth.setLayout(new BorderLayout(0, 0));
@@ -242,4 +247,7 @@ public class MainFrame {
 	public PanelMatch getPanelMatch() {
 		return panelMatch;
 	}
+	public PanelRanking getPanelRanking() {
+		return panelRanking;
+	}	
 }

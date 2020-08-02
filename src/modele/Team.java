@@ -1,10 +1,12 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-public class Team {
+public class Team implements Comparable {
 	
 	protected String name;
+	protected int rankingPoints;
 	protected Player[] players = new Player[5]; //Bench + Actifs
 	protected Player coach;
 	protected ArrayList<Strategy> strategies = new ArrayList<Strategy>();
@@ -14,6 +16,7 @@ public class Team {
 	public Team()
 	{
 		//inGameTeam = new InGameTeam(this);
+		rankingPoints = 0;
 	}
 	
 	public void addPlayer(Player newPlayer)
@@ -34,6 +37,14 @@ public class Team {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getRankingPoints() {
+		return rankingPoints;
+	}
+
+	public void setRankingPoints(int rankingPoints) {
+		this.rankingPoints = rankingPoints;
 	}
 
 	public Player[] getPlayers() {
@@ -80,5 +91,15 @@ public class Team {
 			}
 		}
 		return player;
+	}
+
+	@Override
+	public int compareTo(Object o) 
+	{
+		Team comparedTeam = (Team) o;
+		if (rankingPoints <= comparedTeam.rankingPoints)
+			return 1;
+		else
+			return -1;
 	}
 }
