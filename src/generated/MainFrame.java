@@ -76,6 +76,7 @@ public class MainFrame {
 		frmCsgoManager.setTitle("CS:GO Manager 2020");
 		frmCsgoManager.setBounds(100, 100, 650, 450);
 		frmCsgoManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmCsgoManager.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		panelCenter = new JPanel();
 		frmCsgoManager.getContentPane().add(panelCenter, BorderLayout.CENTER);
