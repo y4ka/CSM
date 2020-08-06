@@ -19,6 +19,8 @@ public class GameData
 {
 	private HashMap<Integer, Player> playerDatabase = new HashMap<Integer, Player>();
 	private HashMap<Integer, Team> teamDatabase = new HashMap<Integer, Team>();
+	private HashMap<Integer, Tournament> tournamentDatabase = new HashMap<Integer, Tournament>();
+	
 	private ArrayList<Team> teamRanking = new ArrayList<Team>();
 	
 	private Team monEquipe;
@@ -49,8 +51,10 @@ public class GameData
 		ArrayList<String> teamsLines = readFile("resources/teams.csv");
 		createTeams(teamsLines);
 		
-		populateTeams();
+		ArrayList<String> tournamentsLines = readFile("resources/tournaments.csv");
+		createTournaments(tournamentsLines);
 		
+		populateTeams();
 		createDefaultInGameTeam();
 	}
 	
@@ -135,6 +139,41 @@ public class GameData
 		System.out.println();
 	}
 	
+	private void createTournaments(ArrayList<String> lines)
+	{
+		System.out.println("Create Tournaments and add them to the database: ");
+		
+		//On parcours toutes les lignes du fichier:
+		for(String line : lines)
+		{
+			Tournament newTournament = new Tournament();
+			
+			//On divise chaque ligne:
+			 String[] oneData = line.split(",");
+	         
+			 //On récupere chaque info et on cree les objets Tournament:
+			 int id = Integer.parseInt(oneData[0]);
+			 String name = oneData[1];
+			 int invitedTeams = Integer.parseInt(oneData[2]);
+			 LocalDate inscriptionDate = LocalDate.parse(oneData[3]);
+			 LocalDate startDate = LocalDate.parse(oneData[4]);
+			 
+			 //On met a jour les champs de l'equipe:
+			 newTournament.setId(id);
+			 newTournament.setName(name);
+			 newTournament.setInvitedTeams(invitedTeams);
+			 newTournament.setInscriptionDate(inscriptionDate);
+			 newTournament.setStartDate(startDate);
+			 
+			 //On ajoute l'equipe dans la base de donnees:
+			 tournamentDatabase.put(id, newTournament);
+			 
+			 System.out.println("- "+name);
+		}
+		
+		System.out.println();
+	}
+	
 	private void populateTeams()
 	{
 		//On comble les vides dans les equipes avec des Smith:
@@ -205,5 +244,9 @@ public class GameData
 	public void setTeamRanking(ArrayList<Team> teamRanking)
 	{
 		this.teamRanking = teamRanking;
+	}
+
+	public HashMap<Integer, Tournament> getTournamentDatabase() {
+		return tournamentDatabase;
 	}
 }

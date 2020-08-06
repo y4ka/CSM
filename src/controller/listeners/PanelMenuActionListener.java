@@ -47,10 +47,6 @@ public class PanelMenuActionListener implements ActionListener {
 		{
 			this.btnTactiquesEvent();
 		}
-		else if (e.getSource().equals(mainFrame.getPanelMenu().getBtnLineup()))
-		{
-			this.btnLineupEvent();
-		}
 		else if (e.getSource().equals(mainFrame.getPanelMenu().getBtnRanking()))
 		{
 			this.btnRankingEvent();
@@ -98,14 +94,6 @@ public class PanelMenuActionListener implements ActionListener {
 	    cl.show(mainFrame.getPanelCenter(), "panelTactiques");
 	}
 	
-	private void btnLineupEvent()
-	{
-		updateLineUpView();
-		
-		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
-	    cl.show(mainFrame.getPanelCenter(), "panelLineUp");
-	}
-	
 	private void btnRankingEvent()
 	{
 		//Met à jour les données du panneau Ranking:
@@ -114,40 +102,5 @@ public class PanelMenuActionListener implements ActionListener {
 		//Affiche le panneau une fois qu'il est a jour:
 		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
 	    cl.show(mainFrame.getPanelCenter(), "panelRanking");
-	}
-	
-	private void updateLineUpView()
-	{	
-		//On nettoye les comboBox:
-		mainFrame.getComboBoxLineUpPlayer1().removeAllItems();
-		mainFrame.getComboBoxLineUpPlayer2().removeAllItems();
-		mainFrame.getComboBoxLineUpPlayer3().removeAllItems();
-		mainFrame.getComboBoxLineUpPlayer4().removeAllItems();
-		mainFrame.getComboBoxLineUpPlayer5().removeAllItems();
-		
-		//On affiche dans chaque combo tous les joueurs possibles:
-		for (int i = 0 ; i < gameData.getMonEquipe().getPlayers().length ; i++)
-		{
-			Player player = gameData.getMonEquipe().getPlayers()[i];
-			if (player != null)
-			{
-				mainFrame.getComboBoxLineUpPlayer1().addItem(gameData.getMonEquipe().getPlayers()[i].getNickname());
-				mainFrame.getComboBoxLineUpPlayer2().addItem(gameData.getMonEquipe().getPlayers()[i].getNickname());
-				mainFrame.getComboBoxLineUpPlayer3().addItem(gameData.getMonEquipe().getPlayers()[i].getNickname());
-				mainFrame.getComboBoxLineUpPlayer4().addItem(gameData.getMonEquipe().getPlayers()[i].getNickname());
-				mainFrame.getComboBoxLineUpPlayer5().addItem(gameData.getMonEquipe().getPlayers()[i].getNickname());
-			}
-		}
-		
-		//Si une line-up existe deja, on l'affiche en prio:
-		InGameTeam inGameTeam = gameData.getMonEquipe().getInGameTeam();
-		if (inGameTeam != null)
-		{
-			mainFrame.getComboBoxLineUpPlayer1().setSelectedItem(inGameTeam.getInGamePlayers()[0].getNickname());
-			mainFrame.getComboBoxLineUpPlayer2().setSelectedItem(inGameTeam.getInGamePlayers()[1].getNickname());
-			mainFrame.getComboBoxLineUpPlayer3().setSelectedItem(inGameTeam.getInGamePlayers()[2].getNickname());
-			mainFrame.getComboBoxLineUpPlayer4().setSelectedItem(inGameTeam.getInGamePlayers()[3].getNickname());
-			mainFrame.getComboBoxLineUpPlayer5().setSelectedItem(inGameTeam.getInGamePlayers()[4].getNickname());
-		}
 	}
 }

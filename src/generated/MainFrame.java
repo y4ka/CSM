@@ -45,13 +45,6 @@ public class MainFrame {
 	private JComboBox comboBoxSiteJoueur2;
 	private JPanel panelTactiqueBoutons;
 	private JButton btnTactiqueSauvegarder;
-	private JPanel panelLineUp;
-	private JButton btnSauvegarderLineUp;
-	private JComboBox comboBoxLineUpPlayer1;
-	private JComboBox comboBoxLineUpPlayer2;
-	private JComboBox comboBoxLineUpPlayer3;
-	private JComboBox comboBoxLineUpPlayer4;
-	private JComboBox comboBoxLineUpPlayer5;
 	private JPanel panelSouth;
 	private JButton btnContinue;
 	private PanelAgenda panelAgenda;
@@ -137,29 +130,6 @@ public class MainFrame {
 		btnTactiqueSauvegarder = new JButton("Sauvegarder");
 		panelTactiqueBoutons.add(btnTactiqueSauvegarder);
 		
-		panelLineUp = new JPanel();
-		panelLineUp.setBorder(new TitledBorder(null, "LineUp", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelCenter.add(panelLineUp, "panelLineUp");
-		panelLineUp.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		btnSauvegarderLineUp = new JButton("Sauvegarder");
-		panelLineUp.add(btnSauvegarderLineUp);
-		
-		comboBoxLineUpPlayer1 = new JComboBox();
-		panelLineUp.add(comboBoxLineUpPlayer1);
-		
-		comboBoxLineUpPlayer2 = new JComboBox();
-		panelLineUp.add(comboBoxLineUpPlayer2);
-		
-		comboBoxLineUpPlayer3 = new JComboBox();
-		panelLineUp.add(comboBoxLineUpPlayer3);
-		
-		comboBoxLineUpPlayer4 = new JComboBox();
-		panelLineUp.add(comboBoxLineUpPlayer4);
-		
-		comboBoxLineUpPlayer5 = new JComboBox();
-		panelLineUp.add(comboBoxLineUpPlayer5);
-		
 		panelEffectif = new PanelEffectif();
 		panelCenter.add(panelEffectif, "panelEffectif");
 		
@@ -205,24 +175,6 @@ public class MainFrame {
 	public JButton getBtnTactiqueSauvegarder() {
 		return btnTactiqueSauvegarder;
 	}
-	public JButton getBtnSauvegarderLineUp() {
-		return btnSauvegarderLineUp;
-	}
-	public JComboBox getComboBoxLineUpPlayer2() {
-		return comboBoxLineUpPlayer2;
-	}
-	public JComboBox getComboBoxLineUpPlayer1() {
-		return comboBoxLineUpPlayer1;
-	}
-	public JComboBox getComboBoxLineUpPlayer3() {
-		return comboBoxLineUpPlayer3;
-	}
-	public JComboBox getComboBoxLineUpPlayer5() {
-		return comboBoxLineUpPlayer5;
-	}
-	public JComboBox getComboBoxLineUpPlayer4() {
-		return comboBoxLineUpPlayer4;
-	}
 	public JButton getBtnContinue() {
 		return btnContinue;
 	}
@@ -231,9 +183,6 @@ public class MainFrame {
 	}
 	public PanelAgenda getPanelAgenda() {
 		return panelAgenda;
-	}
-	public JPanel getPanelLineUp() {
-		return panelLineUp;
 	}
 	public PanelEffectif getPanelEffectif() {
 		return panelEffectif;

@@ -1,20 +1,13 @@
 package generated;
 
-import javax.swing.JPanel;
-
-import controller.listeners.PanelMenuActionListener;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 public class PanelMenu extends JPanel {
 	private JButton btnAgenda;
 	private JButton btnTactiques;
-	private JButton btnLineup;
 	private JButton btnMessagerie;
 	private JButton btnBudget;
 	private JButton btnEffectif;
@@ -41,9 +34,6 @@ public class PanelMenu extends JPanel {
 		btnTactiques = new JButton("Tactiques");
 		add(btnTactiques);
 		
-		btnLineup = new JButton("LineUp");
-		add(btnLineup);
-		
 		btnRanking = new JButton("Ranking");
 		add(btnRanking);
 	}
@@ -53,9 +43,6 @@ public class PanelMenu extends JPanel {
 	}
 	public JButton getBtnTactiques() {
 		return btnTactiques;
-	}
-	public JButton getBtnLineup() {
-		return btnLineup;
 	}
 	public JButton getBtnMessagerie() {
 		return btnMessagerie;

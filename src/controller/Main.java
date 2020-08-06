@@ -13,9 +13,8 @@ public class Main
 		
 		Controller controller = new Controller(gameData, mainFrame);
 		controller.initController();
-		mainFrame.getFrame().setVisible(true);
+		controller.nouvellePartie();
 		
-		GameManager gameManager = new GameManager(gameData, mainFrame);
-		gameManager.nouvellePartie();
+		mainFrame.getFrame().setVisible(true);
 	}
 }

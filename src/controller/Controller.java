@@ -1,10 +1,10 @@
 package controller;
 
-import controller.listeners.PanelLineupActionListener;
 import controller.listeners.PanelMatchActionListener;
 import controller.listeners.PanelMenuActionListener;
 import controller.listeners.PanelSouthActionListener;
 import controller.listeners.PanelTactiquesActionListener;
+import controller.managers.GameManager;
 import generated.MainFrame;
 import modele.GameData;
 
@@ -17,9 +17,11 @@ public class Controller {
 	//Listeners
 	PanelMenuActionListener panelMenuActionListener;
 	PanelTactiquesActionListener panelTactiquesActionListener;
-	PanelLineupActionListener panelLineupActionListener;
 	PanelSouthActionListener panelSouthActionListener;
 	PanelMatchActionListener panelMatchActionListener;
+	
+	//Managers
+	GameManager gameManager;
 	
 	public Controller(GameData gameData, MainFrame mainFrame) {
 		
@@ -30,9 +32,12 @@ public class Controller {
 		//Listeners
 		this.panelMenuActionListener = new PanelMenuActionListener(gameData, mainFrame);
 		this.panelTactiquesActionListener = new PanelTactiquesActionListener(gameData, mainFrame);
-		this.panelLineupActionListener = new PanelLineupActionListener(gameData, mainFrame);
 		this.panelSouthActionListener = new PanelSouthActionListener(gameData, mainFrame);
 		this.panelMatchActionListener = new PanelMatchActionListener(gameData, mainFrame);
+		
+		//Managers
+		gameManager = new GameManager(gameData, mainFrame);
+		panelSouthActionListener.addGameManager(gameManager);
 	}
 	
 	public void initController() {
@@ -43,7 +48,6 @@ public class Controller {
 		mainFrame.getPanelMenu().getBtnAgenda().addActionListener(panelMenuActionListener);
 		mainFrame.getPanelMenu().getBtnBudget().addActionListener(panelMenuActionListener);
 		mainFrame.getPanelMenu().getBtnTactiques().addActionListener(panelMenuActionListener);
-		mainFrame.getPanelMenu().getBtnLineup().addActionListener(panelMenuActionListener);
 		mainFrame.getPanelMenu().getBtnRanking().addActionListener(panelMenuActionListener);
 		
 		//panelTactiquesActionListener
@@ -55,19 +59,14 @@ public class Controller {
 		
 		mainFrame.getBtnTactiqueSauvegarder().addActionListener(panelTactiquesActionListener);
 		
-		//panelLineupActionListener
-		mainFrame.getComboBoxLineUpPlayer1().addActionListener(panelLineupActionListener);
-		mainFrame.getComboBoxLineUpPlayer2().addActionListener(panelLineupActionListener);
-		mainFrame.getComboBoxLineUpPlayer3().addActionListener(panelLineupActionListener);
-		mainFrame.getComboBoxLineUpPlayer4().addActionListener(panelLineupActionListener);
-		mainFrame.getComboBoxLineUpPlayer5().addActionListener(panelLineupActionListener);
-		
-		mainFrame.getBtnSauvegarderLineUp().addActionListener(panelLineupActionListener);
-		
 		//panelMatchActionListener
 		mainFrame.getPanelMatch().getPanelMatchActions().getBtnStart().addActionListener(panelMatchActionListener);
 		
 		//panelSouthActionListener
 		mainFrame.getBtnContinue().addActionListener(panelSouthActionListener);
+	}
+	
+	public void nouvellePartie() {
+		gameManager.nouvellePartie();
 	}
 }

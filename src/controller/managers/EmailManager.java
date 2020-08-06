@@ -1,4 +1,4 @@
-package controller;
+package controller.managers;
 
 import controller.dayEvents.DayEvent;
 import controller.dayEvents.EventMatch;
@@ -6,13 +6,14 @@ import generated.MainFrame;
 import modele.EMail;
 import modele.EMail.EMAIL_TYPE;
 import modele.GameData;
+import modele.Tournament;
 
-public class EmailGenerator 
+public class EmailManager 
 {
 	GameData gameData;
 	MainFrame mainFrame;
 	
-	public EmailGenerator(GameData gameData, MainFrame mainFrame)
+	public EmailManager(GameData gameData, MainFrame mainFrame)
 	{
 		this.gameData = gameData;
 		this.mainFrame = mainFrame;
@@ -54,5 +55,15 @@ public class EmailGenerator
 		String content = "Le match opposant "+event.getInGameTeamA().getName()+" à "+event.getInGameTeamB().getName()+" s'est terminé sur un score de "+event.getInGameTeamA().getScore()
 				+" à "+event.getInGameTeamB().getScore()+".\n";
 		return content;
+	}
+	
+	public void sendTournamentInscription(Tournament tournament)
+	{
+		EMAIL_TYPE emailType 	= EMAIL_TYPE.ACTION;
+		String title 			= "Invitation au Tournois "+tournament.getName();
+		String content 			= "Vous êtes invités au tournois "+tournament.getName();
+		
+		EMail email = new EMail(emailType, title, content);
+		gameData.getMessagerie().addEmail(email);
 	}
 }
