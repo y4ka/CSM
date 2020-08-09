@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
 public class PanelMessagerieDetail extends JPanel {
 	private JTextArea textAreaContenuMessage;
 	private PanelMessagerieDetailActions panelMessagerieDetailActions;
+	private EMail currentMail;
 
 	/**
 	 * Create the panel.
@@ -29,6 +30,8 @@ public class PanelMessagerieDetail extends JPanel {
 
 	public void update(EMail selectedEMail)
 	{
+		this.currentMail = selectedEMail;
+		
 		//Titre du message:
 		TitledBorder titledBorder = (TitledBorder) this.getBorder();
 		titledBorder.setTitle(selectedEMail.getTitle());
@@ -36,7 +39,21 @@ public class PanelMessagerieDetail extends JPanel {
 		//Contenu du message:
 		textAreaContenuMessage.setText(selectedEMail.getContent());
 		
+		//Type du message:
+		if (selectedEMail.getEmailType().equals(EMail.EMAIL_TYPE.INFORMATION))
+			panelMessagerieDetailActions.setVisible(false);
+		else
+			panelMessagerieDetailActions.setVisible(true);
+		
 		//Repaint pour prendre en compte le changement du titledborder:
 		this.repaint();
+	}
+	
+	public PanelMessagerieDetailActions getPanelMessagerieDetailActions() {
+		return panelMessagerieDetailActions;
+	}
+
+	public EMail getCurrentMail() {
+		return currentMail;
 	}
 }

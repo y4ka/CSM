@@ -2,13 +2,15 @@ package modele;
 
 public class EMail 
 {
-	public enum EMAIL_TYPE {INFORMATION, ACTION};
+	public enum EMAIL_TYPE {INFORMATION, TOURNAMENT_INVITATION};
 	
 	private EMAIL_TYPE emailType;
 	private boolean answered = false;
 	private boolean read = false;
 	private String title;
 	private String content;
+	
+	private int idActionObject;
 	
 	public EMail(EMAIL_TYPE emailType, String title, String content)
 	{
@@ -57,6 +59,14 @@ public class EMail
 		this.content = content;
 	}
 	
+	public void setIdActionObject(int idActionObject) {
+		this.idActionObject = idActionObject;
+	}
+
+	public int getIdActionObject() {
+		return idActionObject;
+	}
+
 	@Override
 	public String toString()
 	{

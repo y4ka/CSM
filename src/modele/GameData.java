@@ -226,6 +226,14 @@ public class GameData
 		else
 			return null;
 	}
+	
+	public Tournament getTournament(int id)
+	{
+		if (tournamentDatabase.containsKey(id))
+			return tournamentDatabase.get(id);
+		else
+			return null;
+	}
 
 	public Messagerie getMessagerie() {
 		return messagerie;

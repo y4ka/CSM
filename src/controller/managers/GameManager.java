@@ -33,7 +33,7 @@ public class GameManager
 		this.tournamentManager = new TournamentManager(gameData, mainFrame);
 		
 		tournamentManager.addEmailManager(emailManager);
-		
+		emailManager.addTournamentManager(tournamentManager);
 	}
 	
 	public void nouvellePartie()
@@ -172,5 +172,13 @@ public class GameManager
 	private void eventRepos(EventRepos repos)
 	{
 		repos.setFinished(true);
+	}
+
+	public EmailManager getEmailManager() {
+		return emailManager;
+	}
+
+	public TournamentManager getTournamentManager() {
+		return tournamentManager;
 	}
 }

@@ -45,4 +45,9 @@ public class TournamentManager
 			}
 	    }
 	}
+	
+	public void answerTournamentInvitation(Tournament tournament, boolean answer)
+	{
+		System.out.println("DADA"+answer);
+	}
 }

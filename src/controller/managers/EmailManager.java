@@ -13,6 +13,8 @@ public class EmailManager
 	GameData gameData;
 	MainFrame mainFrame;
 	
+	TournamentManager tournamentManager;
+	
 	public EmailManager(GameData gameData, MainFrame mainFrame)
 	{
 		this.gameData = gameData;
@@ -59,11 +61,30 @@ public class EmailManager
 	
 	public void sendTournamentInscription(Tournament tournament)
 	{
-		EMAIL_TYPE emailType 	= EMAIL_TYPE.ACTION;
+		EMAIL_TYPE emailType 	= EMAIL_TYPE.TOURNAMENT_INVITATION;
 		String title 			= "Invitation au Tournois "+tournament.getName();
 		String content 			= "Vous êtes invités au tournois "+tournament.getName();
-		
+		int tournamentId		= tournament.getId();
 		EMail email = new EMail(emailType, title, content);
+		email.setIdActionObject(tournamentId);
 		gameData.getMessagerie().addEmail(email);
+	}
+	
+	public void answerAction(EMail email, boolean answer)
+	{
+		int idActionObject = email.getIdActionObject();
+		
+		switch (email.getEmailType())
+		{
+		case TOURNAMENT_INVITATION:
+			Tournament tournament = gameData.getTournament(idActionObject);
+			tournamentManager.answerTournamentInvitation(tournament, answer);
+			break;
+		}
+	}
+	
+	public void addTournamentManager(TournamentManager tournamentManager)
+	{
+		this.tournamentManager = tournamentManager;
 	}
 }
