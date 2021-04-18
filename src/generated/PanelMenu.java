@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 
 public class PanelMenu extends JPanel {
 	private JButton btnAgenda;
-	private JButton btnTactiques;
 	private JButton btnMessagerie;
 	private JButton btnBudget;
 	private JButton btnEffectif;
@@ -31,18 +30,12 @@ public class PanelMenu extends JPanel {
 		btnBudget = new JButton("Budget");
 		add(btnBudget);
 		
-		btnTactiques = new JButton("Tactiques");
-		add(btnTactiques);
-		
 		btnRanking = new JButton("Ranking");
 		add(btnRanking);
 	}
 
 	public JButton getBtnAgenda() {
 		return btnAgenda;
-	}
-	public JButton getBtnTactiques() {
-		return btnTactiques;
 	}
 	public JButton getBtnMessagerie() {
 		return btnMessagerie;

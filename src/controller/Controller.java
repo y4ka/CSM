@@ -10,7 +10,6 @@ import controller.listeners.PanelMatchActionListener;
 import controller.listeners.PanelMenuActionListener;
 import controller.listeners.PanelMessagerieActionListener;
 import controller.listeners.PanelSouthActionListener;
-import controller.listeners.PanelTactiquesActionListener;
 import controller.managers.GameManager;
 import generated.MainFrame;
 import modele.GameData;
@@ -23,7 +22,6 @@ public class Controller {
 	
 	//Listeners
 	PanelMenuActionListener panelMenuActionListener;
-	PanelTactiquesActionListener panelTactiquesActionListener;
 	PanelSouthActionListener panelSouthActionListener;
 	PanelMatchActionListener panelMatchActionListener;
 	PanelMessagerieActionListener panelMessagerieActionListener;
@@ -39,7 +37,6 @@ public class Controller {
 		
 		//Listeners
 		this.panelMenuActionListener = new PanelMenuActionListener(gameData, mainFrame);
-		this.panelTactiquesActionListener = new PanelTactiquesActionListener(gameData, mainFrame);
 		this.panelSouthActionListener = new PanelSouthActionListener(gameData, mainFrame);
 		this.panelMatchActionListener = new PanelMatchActionListener(gameData, mainFrame);
 		this.panelMessagerieActionListener = new PanelMessagerieActionListener(gameData, mainFrame);
@@ -54,15 +51,6 @@ public class Controller {
 		
 		//panelMenuActionListener
 		addActionListenerToAll(mainFrame.getPanelMenu(), panelMenuActionListener);
-		
-		//panelTactiquesActionListener
-		mainFrame.getComboBoxTactiqueJoueur1().addActionListener(panelTactiquesActionListener);
-		mainFrame.getComboBoxTactiqueJoueur2().addActionListener(panelTactiquesActionListener);
-		
-		mainFrame.getComboBoxSiteJoueur1().addActionListener(panelTactiquesActionListener);
-		mainFrame.getComboBoxSiteJoueur2().addActionListener(panelTactiquesActionListener);
-		
-		mainFrame.getBtnTactiqueSauvegarder().addActionListener(panelTactiquesActionListener);
 		
 		//panelMatchActionListener
 		mainFrame.getPanelMatch().getPanelMatchActions().getBtnStart().addActionListener(panelMatchActionListener);

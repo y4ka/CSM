@@ -43,10 +43,6 @@ public class PanelMenuActionListener implements ActionListener {
 		{
 			this.btnBudgetEvent();
 		}
-		else if (e.getSource().equals(mainFrame.getPanelMenu().getBtnTactiques()))
-		{
-			this.btnTactiquesEvent();
-		}
 		else if (e.getSource().equals(mainFrame.getPanelMenu().getBtnRanking()))
 		{
 			this.btnRankingEvent();
@@ -86,12 +82,6 @@ public class PanelMenuActionListener implements ActionListener {
 	{
 		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
 	    cl.show(mainFrame.getPanelCenter(), "panelBudget");
-	}
-	
-	private void btnTactiquesEvent()
-	{
-		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
-	    cl.show(mainFrame.getPanelCenter(), "panelTactiques");
 	}
 	
 	private void btnRankingEvent()
