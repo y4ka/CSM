@@ -16,5 +16,6 @@ public class Main
 		controller.nouvellePartie();
 		
 		mainFrame.getFrame().setVisible(true);
+		mainFrame.update(gameData);
 	}
 }

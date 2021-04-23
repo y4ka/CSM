@@ -3,6 +3,7 @@ package generated.panelCenter.panelMatch;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import controller.dayEvents.DayEvent.EVENT_STATUS;
 import controller.dayEvents.EventMatch;
 
 import javax.swing.UIManager;
@@ -55,7 +56,7 @@ public class PanelMatchLogs extends JPanel {
 		lblTime.setText(min+":"+time%60);
 		
 		//Si le match est terminé, on clear les logs:
-		if (match.isFinished())
+		if (match.getEventStatus() == EVENT_STATUS.ENDED)
 			textAreaLogs.setText("");
 	}
 	public JTextArea getTextAreaLogs() {

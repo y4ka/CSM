@@ -4,6 +4,11 @@ import java.awt.Color;
 
 public class EventRepos extends DayEvent {
 
+	public EventRepos()
+	{
+		super();
+	}
+	
 	@Override
 	public void startEvent() 
 	{

@@ -9,14 +9,18 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import controller.dayEvents.DayEvent;
+import controller.dayEvents.DayEvent.EVENT_STATUS;
 import generated.panelCenter.panelAgenda.PanelAgenda;
 import generated.panelCenter.panelEffectif.PanelEffectif;
 import generated.panelCenter.panelMatch.PanelMatch;
 import generated.panelCenter.panelMessagerie.PanelMessagerie;
 import generated.panelCenter.panelPresentationMatch.PanelPresentationMatch;
 import generated.panelCenter.panelRanking.PanelRanking;
+import modele.GameData;
+import modele.Observer;
 
-public class MainFrame {
+public class MainFrame implements Observer {
 
 	private JFrame frmCsgoManager;
 	private JPanel panelCenter;
@@ -90,6 +94,22 @@ public class MainFrame {
 		panelMenu = new PanelMenu();
 		frmCsgoManager.getContentPane().add(panelMenu, BorderLayout.WEST);
 	}
+	
+	@Override
+	public void update(GameData gameData) //TODO Faire cascade d'update sur toutes les vues pour plus se faire chier ?
+	{
+		DayEvent dayEvent = gameData.getAgenda().getCurrentDayEvent();
+		
+		if(dayEvent.getEventStatus() == EVENT_STATUS.NOT_STARTED)
+		{
+			btnContinue.setText("LANCER "+dayEvent.getEventType());
+			btnContinue.setEnabled(true);
+		}
+		else
+		{
+			btnContinue.setText(dayEvent.getEventType()+" EN COURS");
+		}	
+	}	
 
 	public JFrame getFrame() {
 		return frmCsgoManager;
@@ -120,5 +140,5 @@ public class MainFrame {
 	}
 	public PanelRanking getPanelRanking() {
 		return panelRanking;
-	}	
+	}
 }

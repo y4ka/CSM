@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 
 import controller.RankingCalculator;
 import controller.dayEvents.DayEvent;
+import controller.dayEvents.DayEvent.EVENT_STATUS;
 import controller.dayEvents.EventMatch;
 import controller.dayEvents.EventRepos;
 import generated.MainFrame;
@@ -73,13 +74,20 @@ public class GameManager
 	
 	public void nextAction()
 	{
+		//TODO:
+		//Tant qu'il reste des actions, le bouton continuer permet de lancer l'action du jour.
+		//Comme ca si on ajoute des matchs en cours de route, on les ajoute à la liste
+		//Si il n'y a plus d'actions du jour, on lance un check de warning sur la messagerie, contracts, etc...
+		
 		//On verifie les actions de la journee:
-		boolean messagerieOK = actionMessagerie();
 		boolean actionOK = actionEvents();
 		
 		//Si toutes les actions ont été effectuées, on passe au jour suivant:
-		if (messagerieOK && actionOK)
+		if (actionOK)
 			nextDay();
+		
+		//On met à jour la vue:
+		mainFrame.update(gameData);
 	}
 	
 	private boolean actionMessagerie()
@@ -92,7 +100,7 @@ public class GameManager
 		//On récupère les evenements de la journée:
 		DayEvent event = gameData.getAgenda().getCurrentDayEvent();
 		
-		if (!event.isFinished())
+		if (event.getEventStatus() != EVENT_STATUS.ENDED)
 		{
 			switch(event.getEventType())
 			{
@@ -135,10 +143,10 @@ public class GameManager
 	
 	private void eventMatch(EventMatch match)
 	{
-		if (!match.isBrifed())
+		if (match.getEventStatus() == EVENT_STATUS.NOT_STARTED)
 		{
 			affichagePresentationMatch(match);
-			match.setBrifed(true);
+			match.setEventStatus(EVENT_STATUS.BRIEFED);
 		}
 		else
 		{
@@ -171,7 +179,7 @@ public class GameManager
 	
 	private void eventRepos(EventRepos repos)
 	{
-		repos.setFinished(true);
+		repos.setEventStatus(EVENT_STATUS.ENDED);
 	}
 
 	public EmailManager getEmailManager() {

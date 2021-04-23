@@ -5,58 +5,36 @@ import java.awt.Color;
 public abstract class DayEvent {
 
 	public enum DAY_EVENTS {REPOS, ENTRAINEMENT_COLLECTIF, ENRAINEMENT_INDIVIDUEL, MATCH, COHESION, SPORT, DEPLACEMENT};
+	public enum EVENT_STATUS {NOT_STARTED, BRIEFED, STARTED, DEBRIEFED, ENDED};
 	
 	protected DAY_EVENTS eventType;
+	protected EVENT_STATUS eventStatus;
+	
 	protected String eventDescription;
-	protected boolean started;
-	protected boolean finished;
-	protected boolean brifed;
-	protected boolean debrifed;
 	protected Color eventColor;
 	
 	public abstract void startEvent();
 	public abstract void endEvent();
+	
+	public DayEvent()
+	{
+		eventStatus = EVENT_STATUS.NOT_STARTED;
+	}
 	
 	public DAY_EVENTS getEventType()
 	{
 		return eventType;
 	}
 	
+	public EVENT_STATUS getEventStatus() {
+		return eventStatus;
+	}
+	public void setEventStatus(EVENT_STATUS eventStatus) {
+		this.eventStatus = eventStatus;
+	}
 	public String getEventDescription() 
 	{
 		return eventDescription;
-	}
-
-	public boolean isStarted() {
-		return started;
-	}
-
-	public void setStarted(boolean started) {
-		this.started = started;
-	}
-
-	public boolean isFinished() {
-		return finished;
-	}
-
-	public void setFinished(boolean finished) {
-		this.finished = finished;
-	}
-
-	public boolean isBrifed() {
-		return brifed;
-	}
-
-	public void setBrifed(boolean brifed) {
-		this.brifed = brifed;
-	}
-
-	public boolean isDebrifed() {
-		return debrifed;
-	}
-
-	public void setDebrifed(boolean debrifed) {
-		this.debrifed = debrifed;
 	}
 	
 	public Color getEventColor() {

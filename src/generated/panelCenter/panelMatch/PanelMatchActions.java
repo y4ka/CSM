@@ -3,6 +3,7 @@ package generated.panelCenter.panelMatch;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import controller.dayEvents.DayEvent.EVENT_STATUS;
 import controller.dayEvents.EventMatch;
 
 import javax.swing.JButton;
@@ -27,22 +28,22 @@ public class PanelMatchActions extends JPanel {
 	
 	public void update(EventMatch match)
 	{
-		// Match présenté masi pas commencé:
-		if (match.isBrifed() && !match.isStarted())
+		// Match présenté mais pas commencé:
+		if (match.getEventStatus() == EVENT_STATUS.BRIEFED)
 		{
 			btnStart.setText("Start match");
 			btnStart.setEnabled(true);
 		}
 		
 		// Match présenté, commencé mais pas terminé:
-		if (match.isBrifed() && match.isStarted() && !match.isFinished())
+		if (match.getEventStatus() == EVENT_STATUS.STARTED)
 		{
 			btnStart.setText("Play Round");
 			btnStart.setEnabled(true);
 		}
 		
 		// Match terminé:
-		if (match.isFinished())
+		if (match.getEventStatus() == EVENT_STATUS.ENDED)
 		{
 			btnStart.setText("Match over");
 			btnStart.setEnabled(false);
