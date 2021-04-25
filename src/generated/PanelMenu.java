@@ -4,6 +4,14 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+import javax.swing.SwingConstants;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class PanelMenu extends JPanel {
 	private JButton btnAgenda;
@@ -16,22 +24,56 @@ public class PanelMenu extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelMenu() {
-		setLayout(new GridLayout(0, 1, 0, 0));
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{87, 0};
+		gridBagLayout.rowHeights = new int[]{23, 23, 23, 23, 23, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		setLayout(gridBagLayout);
 		
 		btnAgenda = new JButton("Agenda");
-		add(btnAgenda);
+		GridBagConstraints gbc_btnAgenda = new GridBagConstraints();
+		gbc_btnAgenda.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnAgenda.anchor = GridBagConstraints.WEST;
+		gbc_btnAgenda.insets = new Insets(0, 0, 5, 0);
+		gbc_btnAgenda.gridx = 0;
+		gbc_btnAgenda.gridy = 0;
+		add(btnAgenda, gbc_btnAgenda);
 		
 		btnMessagerie = new JButton("Messagerie");
-		add(btnMessagerie);
+		GridBagConstraints gbc_btnMessagerie = new GridBagConstraints();
+		gbc_btnMessagerie.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnMessagerie.anchor = GridBagConstraints.WEST;
+		gbc_btnMessagerie.insets = new Insets(0, 0, 5, 0);
+		gbc_btnMessagerie.gridx = 0;
+		gbc_btnMessagerie.gridy = 1;
+		add(btnMessagerie, gbc_btnMessagerie);
 		
 		btnEffectif = new JButton("Effectif");
-		add(btnEffectif);
+		GridBagConstraints gbc_btnEffectif = new GridBagConstraints();
+		gbc_btnEffectif.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnEffectif.anchor = GridBagConstraints.WEST;
+		gbc_btnEffectif.insets = new Insets(0, 0, 5, 0);
+		gbc_btnEffectif.gridx = 0;
+		gbc_btnEffectif.gridy = 2;
+		add(btnEffectif, gbc_btnEffectif);
 		
 		btnBudget = new JButton("Budget");
-		add(btnBudget);
+		GridBagConstraints gbc_btnBudget = new GridBagConstraints();
+		gbc_btnBudget.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnBudget.anchor = GridBagConstraints.WEST;
+		gbc_btnBudget.insets = new Insets(0, 0, 5, 0);
+		gbc_btnBudget.gridx = 0;
+		gbc_btnBudget.gridy = 3;
+		add(btnBudget, gbc_btnBudget);
 		
 		btnRanking = new JButton("Ranking");
-		add(btnRanking);
+		GridBagConstraints gbc_btnRanking = new GridBagConstraints();
+		gbc_btnRanking.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnRanking.anchor = GridBagConstraints.WEST;
+		gbc_btnRanking.gridx = 0;
+		gbc_btnRanking.gridy = 4;
+		add(btnRanking, gbc_btnRanking);
 	}
 
 	public JButton getBtnAgenda() {

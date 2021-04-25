@@ -13,7 +13,7 @@ public class InGamePlayer extends Player {
 	private int money;
 	private int HP;
 	
-	public InGamePlayer(Player player)
+	public InGamePlayer(Player player) //TODO Pourquoi se faire chier avec un héritage alors qu'on peut mettre le Player en variable
 	{
 		//Initialisation de la super class:
 		super.id = player.getId();

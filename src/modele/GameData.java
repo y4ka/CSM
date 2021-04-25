@@ -45,13 +45,13 @@ public class GameData
 	
 	private void readDataFiles()
 	{
-		ArrayList<String> playersLines = readFile("resources/players.csv");
+		ArrayList<String> playersLines = readFile("resources/data/players.csv");
 		createPlayers(playersLines);
 		
-		ArrayList<String> teamsLines = readFile("resources/teams.csv");
+		ArrayList<String> teamsLines = readFile("resources/data/teams.csv");
 		createTeams(teamsLines);
 		
-		ArrayList<String> tournamentsLines = readFile("resources/tournaments.csv");
+		ArrayList<String> tournamentsLines = readFile("resources/data/tournaments.csv");
 		createTournaments(tournamentsLines);
 		
 		populateTeams();
