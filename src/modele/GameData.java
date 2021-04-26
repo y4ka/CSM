@@ -5,18 +5,16 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Random;
-import java.util.Set;
+
+import javax.swing.ImageIcon;
 
 import controller.CsvFileHelper;
-import controller.dayEvents.Day;
-import controller.dayEvents.DayEvent;
-import controller.dayEvents.EventMatch;
+import tools.ImageTools;
 
 public class GameData 
 {
+	private ImageTools imageTools = new ImageTools();
+	
 	private HashMap<Integer, Player> playerDatabase = new HashMap<Integer, Player>();
 	private HashMap<Integer, Team> teamDatabase = new HashMap<Integer, Team>();
 	private HashMap<Integer, Tournament> tournamentDatabase = new HashMap<Integer, Tournament>();
@@ -86,6 +84,8 @@ public class GameData
 			String nickname = oneData[1];
 			String prenom = oneData[2];
 			String nom = oneData[3];
+			ImageIcon image = imageTools.loadPlayerImage(id);
+			
 			float rating = Float.parseFloat(oneData[4]);
 			float headshotPercentage = Float.parseFloat(oneData[5]);
 			float damagePerRound = Float.parseFloat(oneData[6]);
@@ -95,6 +95,7 @@ public class GameData
 			newPlayer.setNickname(nickname);
 			newPlayer.setNom(nom);
 			newPlayer.setPrenom(prenom);
+			newPlayer.setImage(image);
 			newPlayer.setRating(rating);
 			newPlayer.setHeadshotPercentage(headshotPercentage);
 			newPlayer.setDamagePerRound(damagePerRound);

@@ -40,8 +40,9 @@ public class PanelEffectifDetails extends JPanel
 		gbl_panelBio.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panelBio.setLayout(gbl_panelBio);
 		
-		lblPlayerImage = new JLabel("<PlayerImage>");
+		lblPlayerImage = new JLabel("");
 		GridBagConstraints gbc_lblPlayerImage = new GridBagConstraints();
+		gbc_lblPlayerImage.gridheight = 4;
 		gbc_lblPlayerImage.fill = GridBagConstraints.BOTH;
 		gbc_lblPlayerImage.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPlayerImage.gridx = 0;
@@ -90,5 +91,6 @@ public class PanelEffectifDetails extends JPanel
 		lblNickname.setText("Nickname: "+selectedPlayer.getNickname());
 		lblAge.setText("Age: ");
 		lblCurrentTeam.setText("Current Team: ");
+		lblPlayerImage.setIcon(selectedPlayer.getImage());
 	}
 }

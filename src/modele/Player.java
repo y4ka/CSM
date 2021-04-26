@@ -1,11 +1,14 @@
 package modele;
 
+import javax.swing.ImageIcon;
+
 public class Player 
 {
 	protected int id;
 	protected String nickname;
 	protected String nom;
 	protected String prenom;
+	protected ImageIcon image;
 	
 	protected float rating;
 	protected float headshotPercentage;
@@ -70,5 +73,13 @@ public class Player
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public ImageIcon getImage() {
+		return image;
+	}
+
+	public void setImage(ImageIcon image) {
+		this.image = image;
 	}
 }
