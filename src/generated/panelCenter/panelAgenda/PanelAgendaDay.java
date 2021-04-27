@@ -61,8 +61,13 @@ public class PanelAgendaDay extends JPanel {
 		//On met à jour la couleur du jour courant:
 		if (isCurrentDate)
 		{
-			//this.setBackground(Color.RED);
+			this.setBackground(Color.LIGHT_GRAY);
 			titledBorder.setTitleColor(Color.RED);
+		}
+		else
+		{
+			titledBorder.setTitleColor(Color.BLACK);
+			this.setBackground(UIManager.getColor ("Panel.background"));
 		}
 	}
 }

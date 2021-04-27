@@ -48,6 +48,7 @@ public class PanelEffectif extends JPanel implements Observer, ListSelectionList
 		add(panelEffectifDetails, BorderLayout.CENTER);
 	}
 	
+	@Override
 	public void update(GameData gameData) 
 	{
 		dataModel.setRowCount(0);

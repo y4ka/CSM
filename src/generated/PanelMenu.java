@@ -8,12 +8,16 @@ import javax.swing.ImageIcon;
 import javax.swing.BoxLayout;
 import java.awt.Component;
 import javax.swing.SwingConstants;
+
+import modele.GameData;
+import modele.Observer;
+
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
-public class PanelMenu extends JPanel {
+public class PanelMenu extends JPanel implements Observer {
 	private JButton btnAgenda;
 	private JButton btnMessagerie;
 	private JButton btnBudget;
@@ -74,6 +78,20 @@ public class PanelMenu extends JPanel {
 		gbc_btnRanking.gridx = 0;
 		gbc_btnRanking.gridy = 4;
 		add(btnRanking, gbc_btnRanking);
+	}
+	
+	@Override
+	public void update(GameData gameData) 
+	{
+		int numberNewMessages = gameData.getMessagerie().getNumberNewMessages();
+		if (numberNewMessages != 0)
+		{
+			btnMessagerie.setText("Messagerie ("+numberNewMessages+")");
+		}
+		else
+		{
+			btnMessagerie.setText("Messagerie");
+		}
 	}
 
 	public JButton getBtnAgenda() {

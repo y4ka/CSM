@@ -62,6 +62,7 @@ public class PanelMessagerieListe extends JPanel implements Observer, ListSelect
 	public void valueChanged(ListSelectionEvent e) 
 	{
 		EMail selectedEMail = (EMail) listModel.getElementAt(listMessages.getSelectedIndex());
+		selectedEMail.setRead(true);
 		System.out.println(selectedEMail.getTitle());
 		
 		PanelMessagerie panelMessagerie = (PanelMessagerie)this.getParent();

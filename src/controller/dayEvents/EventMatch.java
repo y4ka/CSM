@@ -49,6 +49,8 @@ public class EventMatch extends DayEvent {
 		 */
 		this.teamA = teamA;
 		this.teamB = teamB;
+		
+		createInGameTeam(); //TODO Alors oui pour plus tard mais là c'est la meme
 	}
 
 	/*
@@ -183,7 +185,6 @@ public class EventMatch extends DayEvent {
 
 			// Mise à jour du temps restant:
 			timeRemaining--;
-			mainFrame.getPanelMatch().update(eventMatch);
 		}
 	}
 
@@ -230,9 +231,6 @@ public class EventMatch extends DayEvent {
 			showLog(playerB.getNickname() + " kill " + playerA.getNickname());
 			System.out.println(playerA.getNickname() + " est mort.");
 		}
-
-		// On met à jour la vue:
-		mainFrame.getPanelMatch().update(this);
 	}
 
 	private void shootAt(InGamePlayer playerA, InGamePlayer playerB) {
@@ -294,9 +292,6 @@ public class EventMatch extends DayEvent {
 			{
 				this.eventStatus = EVENT_STATUS.ENDED;
 			}
-
-			// On met à jour la vue:
-			mainFrame.getPanelMatch().update(this);
 			
 			break;
 		}

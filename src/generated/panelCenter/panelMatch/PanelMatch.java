@@ -3,7 +3,11 @@ package generated.panelCenter.panelMatch;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import controller.dayEvents.DayEvent;
 import controller.dayEvents.EventMatch;
+import controller.dayEvents.DayEvent.DAY_EVENTS;
+import modele.GameData;
+import modele.Observer;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -12,7 +16,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JLabel;
 
-public class PanelMatch extends JPanel {
+public class PanelMatch extends JPanel implements Observer {
 	private PanelMatchEquipe panelMatchEquipeA;
 	private PanelMatchEquipe panelMatchEquipeB;
 	private PanelMatchLogs panelMatchLogs;
@@ -72,12 +76,18 @@ public class PanelMatch extends JPanel {
 		add(panelMatchEquipeB, gbc_panelMatchEquipeB);
 	}
 	
-	public void update(EventMatch match) 
+	@Override
+	public void update(GameData gameData) 
 	{
-		panelMatchEquipeA.update(match.getInGameTeamA());
-		panelMatchEquipeB.update(match.getInGameTeamB());
-		panelMatchLogs.update(match);
-		panelMatchActions.update(match);
+		DayEvent currentDayEvent = gameData.getAgenda().getCurrentDayEvent();
+		if (currentDayEvent.getEventType() == DAY_EVENTS.MATCH)
+		{
+			EventMatch currentMatch = (EventMatch) currentDayEvent;
+			panelMatchEquipeA.update(currentMatch.getInGameTeamA());
+			panelMatchEquipeB.update(currentMatch.getInGameTeamB());
+			panelMatchLogs.update(currentMatch);
+			panelMatchActions.update(currentMatch);
+		}
 	}
 	public PanelMatchActions getPanelMatchActions() {
 		return panelMatchActions;

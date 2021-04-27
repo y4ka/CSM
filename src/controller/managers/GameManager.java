@@ -13,7 +13,7 @@ import modele.GameData;
 import modele.Team;
 import modele.EMail.EMAIL_TYPE;
 
-public class GameManager 
+public class GameManager
 {
 	//MVC
 	GameData gameData;
@@ -35,6 +35,7 @@ public class GameManager
 		
 		tournamentManager.addEmailManager(emailManager);
 		emailManager.addTournamentManager(tournamentManager);
+		
 	}
 	
 	public void nouvellePartie()
@@ -48,6 +49,10 @@ public class GameManager
 		//Test:
 		generateEvents();
 		generateMessages();
+		
+		//GameLoop
+		GameLoop gameLoop = new GameLoop(mainFrame, gameData);
+		gameLoop.start();
 	}
 	
 	private void generateEvents()
@@ -85,9 +90,6 @@ public class GameManager
 		//Si toutes les actions ont été effectuées, on passe au jour suivant:
 		if (actionOK)
 			nextDay();
-		
-		//On met à jour la vue:
-		mainFrame.update(gameData);
 	}
 	
 	private boolean actionMessagerie()
@@ -128,8 +130,6 @@ public class GameManager
 		gameData.getAgenda().nextDay();
 		
 		//On affiche l'agenda:
-		mainFrame.getPanelAgenda().update(gameData);
-		
 		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
 		cl.show(mainFrame.getPanelCenter(), "panelAgenda");
 		
@@ -158,9 +158,6 @@ public class GameManager
 	{
 		//On crée la InGameTeam:
 		match.createInGameTeam();
-		
-		//Met à jour les données du panneau PresentationMatch:
-		mainFrame.getPanelPresentationMatch().update(match);
 				
 		//Affiche le panneau une fois qu'il est a jour:
 		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
@@ -168,10 +165,7 @@ public class GameManager
 	}
 	
 	private void affichageMatch(EventMatch match)
-	{
-		//Met à jour les données du panneau Match:
-		mainFrame.getPanelMatch().update(match);
-		
+	{	
 		//Affiche le panneau une fois qu'il est a jour:
 		CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
 		cl.show(mainFrame.getPanelCenter(), "panelMatch");

@@ -31,9 +31,6 @@ public class PanelMatchActionListener implements ActionListener{
 			
 			//On lance l'evenement:
 			match.startEvent();
-			
-			//On met a jour la fenetre de match:
-			mainFrame.getPanelMatch().update(match);
 		}
 	}
 }

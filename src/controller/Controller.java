@@ -10,6 +10,7 @@ import controller.listeners.PanelMatchActionListener;
 import controller.listeners.PanelMenuActionListener;
 import controller.listeners.PanelMessagerieActionListener;
 import controller.listeners.PanelSouthActionListener;
+import controller.managers.GameLoop;
 import controller.managers.GameManager;
 import generated.MainFrame;
 import modele.GameData;

@@ -96,7 +96,26 @@ public class MainFrame implements Observer {
 	}
 	
 	@Override
-	public void update(GameData gameData) //TODO Faire cascade d'update sur toutes les vues pour plus se faire chier ?
+	public void update(GameData gameData)
+	{
+		//On met à jour les composants de la fenetre:
+		updateMainFrameComponents(gameData);
+		
+		//On met à jour tous les panels fils: //TODO Une liste d'observer plus propre peut etre 
+		//panelCenter.update(gameData);
+		//panelBudget.update(gameData);
+		//panelEntrainement.update(gameData);
+		//panelSouth.update(gameData);
+		panelAgenda.update(gameData);
+		panelMenu.update(gameData);
+		panelEffectif.update(gameData);
+		panelPresentationMatch.update(gameData);
+		panelMessagerie.update(gameData);
+		panelMatch.update(gameData);
+		panelRanking.update(gameData);
+	}
+	
+	private void updateMainFrameComponents(GameData gameData)
 	{
 		DayEvent dayEvent = gameData.getAgenda().getCurrentDayEvent();
 		
@@ -108,8 +127,8 @@ public class MainFrame implements Observer {
 		else
 		{
 			btnContinue.setText(dayEvent.getEventType()+" EN COURS");
-		}	
-	}	
+		}
+	}
 
 	public JFrame getFrame() {
 		return frmCsgoManager;
