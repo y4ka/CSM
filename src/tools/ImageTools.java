@@ -1,5 +1,6 @@
 package tools;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +13,8 @@ import javax.swing.ImageIcon;
 public class ImageTools 
 {
 	private BufferedImage bufferedImage;
+	public final static Color COLOR_T = new Color(196,173,110);
+	public final static Color COLOR_CT = new Color(74,117,181);
 	
 	public ImageTools()
 	{
