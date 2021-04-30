@@ -10,6 +10,8 @@ public class InGamePlayer extends Player {
 	private SECONDARY secondaryWeapon;
 	private KEVLAR kevlar;
 	
+	private int kill;
+	private int death;
 	private int money;
 	private int HP;
 	
@@ -29,6 +31,8 @@ public class InGamePlayer extends Player {
 		this.secondaryWeapon = SECONDARY.NONE;
 		this.kevlar = KEVLAR.NONE;
 		
+		this.death = 0;
+		this.kill = 0;
 		this.money = 800;
 		this.HP = 100;
 	}
@@ -44,8 +48,18 @@ public class InGamePlayer extends Player {
 	public void takeDamages(int damageValue)
 	{
 		HP = HP - damageValue;
-		if (HP < 0)
+		if (HP <= 0)
+		{
 			HP = 0;
+			death++;
+		}
+	}
+	
+	//Mama
+	public void justKilledAMan()
+	{
+		//Put the gun against his head, pull the trigger now he's dead:
+		kill++;
 	}
 
 	public PRIMARY getPrimaryWeapon() {
@@ -86,5 +100,21 @@ public class InGamePlayer extends Player {
 
 	public void setHP(int hP) {
 		HP = hP;
+	}
+
+	public int getKill() {
+		return kill;
+	}
+
+	public void setKill(int kill) {
+		this.kill = kill;
+	}
+
+	public int getDeath() {
+		return death;
+	}
+
+	public void setDeath(int death) {
+		this.death = death;
 	}
 }

@@ -14,6 +14,9 @@ public class PanelMatchEquipeJoueurDetails extends JPanel {
 	private JPanel panelInf;
 	private JPanel panelSup;
 	private JLabel lblHp;
+	private JLabel lblDeath;
+	private JLabel lblMoney;
+	private JLabel lblKill;
 	public PanelMatchEquipeJoueurDetails() {
 		setOpaque(false);
 		setLayout(new GridLayout(2, 1, 0, 0));
@@ -31,11 +34,24 @@ public class PanelMatchEquipeJoueurDetails extends JPanel {
 		
 		panelInf = new JPanel();
 		add(panelInf);
+		panelInf.setLayout(new GridLayout(0, 8, 0, 0));
+		
+		lblMoney = new JLabel("Money");
+		panelInf.add(lblMoney);
+		
+		lblKill = new JLabel("Kill");
+		panelInf.add(lblKill);
+		
+		lblDeath = new JLabel("Death");
+		panelInf.add(lblDeath);
 	}
 	
 	public void update(InGamePlayer inGamePlayer)
 	{
 		lblNickname.setText(inGamePlayer.getNickname());
 		lblHp.setText(""+inGamePlayer.getHP());
+		lblMoney.setText(inGamePlayer.getMoney()+"$");
+		lblDeath.setText("D: "+inGamePlayer.getDeath());
+		lblKill.setText("K: "+inGamePlayer.getKill());
 	}
 }

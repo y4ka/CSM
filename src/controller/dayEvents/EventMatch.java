@@ -152,16 +152,21 @@ public class EventMatch extends DayEvent {
 		}
 
 		@Override
-		public void run() {
+		public void run() 
+		{
 			// On désactive le bouton pour ne pas lancer deux rounds simultanément:
 			mainFrame.getPanelMatch().getPanelMatchActions().getBtnStart().setEnabled(false);
 
 			// A chaque tick, on fait un duel:
 			boolean duelTermine = false;
-			for (InGamePlayer playerA : inGameTeamA.getInGamePlayers()) {
-				if (playerA.isAlive()) {
-					for (InGamePlayer playerB : inGameTeamB.getInGamePlayers()) {
-						if (playerB.isAlive()) {
+			for (InGamePlayer playerA : inGameTeamA.getInGamePlayers()) 
+			{
+				if (playerA.isAlive()) 
+				{
+					for (InGamePlayer playerB : inGameTeamB.getInGamePlayers()) 
+					{
+						if (playerB.isAlive()) 
+						{
 							duel(playerA, playerB);
 							duelTermine = true;
 							break;
@@ -188,7 +193,8 @@ public class EventMatch extends DayEvent {
 		}
 	}
 
-	private void duel(InGamePlayer playerA, InGamePlayer playerB) {
+	private void duel(InGamePlayer playerA, InGamePlayer playerB) 
+	{
 		// Le joueur avec le plus haut rating tire en premier:
 		InGamePlayer currentShooter;
 		InGamePlayer currentVictim;
@@ -224,26 +230,35 @@ public class EventMatch extends DayEvent {
 		}
 
 		// On affiche qui a gagné le duel:
-		if (playerA.isAlive()) {
+		if (playerA.isAlive()) 
+		{
 			showLog(playerA.getNickname() + " kill " + playerB.getNickname());
+			playerA.justKilledAMan();
 			System.out.println(playerB.getNickname() + " est mort.");
-		} else {
+		} 
+		else 
+		{
 			showLog(playerB.getNickname() + " kill " + playerA.getNickname());
+			playerB.justKilledAMan();
 			System.out.println(playerA.getNickname() + " est mort.");
 		}
 	}
 
-	private void shootAt(InGamePlayer playerA, InGamePlayer playerB) {
+	private void shootAt(InGamePlayer playerA, InGamePlayer playerB) 
+	{
 		System.out.println(playerA.getNickname() + " tire sur " + playerB.getNickname() + " !");
 		float headshotPercentage = playerA.getHeadshotPercentage();
 
 		Random rd = new Random();
 		float result = rd.nextFloat() * 100;
 
-		if (result <= headshotPercentage) {
+		if (result <= headshotPercentage) 
+		{
 			System.out.println("HEADSHOT !");
 			playerB.takeDamages(100);
-		} else {
+		} 
+		else 
+		{
 			playerB.takeDamages(25);
 		}
 	}
