@@ -9,6 +9,8 @@ import controller.dayEvents.EventMatch;
 import javax.swing.JLabel;
 import javax.swing.border.TitledBorder;
 import java.awt.GridLayout;
+import java.awt.BorderLayout;
+import javax.swing.SwingConstants;
 
 public class PanelAgendaDayActivity extends JPanel
 {
@@ -17,22 +19,23 @@ public class PanelAgendaDayActivity extends JPanel
 	private JLabel lblEventName;
 	public PanelAgendaDayActivity() {
 		setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		setLayout(new GridLayout(0, 3, 0, 0));
+		setLayout(new BorderLayout(0, 0));
 		
 		lblTeamA = new JLabel();
-		add(lblTeamA);
+		add(lblTeamA, BorderLayout.WEST);
 		
 		lblEventName = new JLabel("Activity Name");
-		add(lblEventName);
+		lblEventName.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblEventName, BorderLayout.CENTER);
 		
 		lblTeamB = new JLabel();
-		add(lblTeamB);
+		add(lblTeamB, BorderLayout.EAST);
 	}
 	
 	public void update(DayEvent dayEvent)
 	{
 		lblEventName.setText(dayEvent.getEventDescription());
-		this.setBackground(dayEvent.getEventColor());
+		//this.setBackground(dayEvent.getEventColor());
 		
 		if (dayEvent.getEventType() == DAY_EVENTS.MATCH)
 		{

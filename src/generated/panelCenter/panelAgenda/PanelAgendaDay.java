@@ -20,6 +20,9 @@ import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 
 public class PanelAgendaDay extends JPanel {
+	
+	ArrayList<PanelAgendaDayActivity> panelAgendaDayActivityList = new ArrayList<PanelAgendaDayActivity>();
+	final int MAXIMUM_NUMBER_OF_ATIVITIES = 5;
 
 	/**
 	 * Create the panel.
@@ -28,20 +31,24 @@ public class PanelAgendaDay extends JPanel {
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "day", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		setLayout(new GridLayout(0, 1, 0, 0));
 
+		for (int i = 0 ; i < MAXIMUM_NUMBER_OF_ATIVITIES ; i++)
+		{
+			PanelAgendaDayActivity panelAgendaDayActivity = new PanelAgendaDayActivity();
+			this.add(panelAgendaDayActivity);
+			panelAgendaDayActivityList.add(panelAgendaDayActivity);
+		}
 	}
 
 	public void update(LocalDate date, Day day, boolean isCurrentDate)
-	{
-		//test
-		this.removeAll();
-		
+	{		
 		//On met à jour les activités du jour:
 		ArrayList<DayEvent> dayEvents = day.getDayEvents();
-		for(DayEvent dayEvent : dayEvents)
+		for (int i = 0 ; i < dayEvents.size() ; i++)
 		{
-			PanelAgendaDayActivity panelAgendaDayActivity = new PanelAgendaDayActivity();
+			DayEvent dayEvent = dayEvents.get(i);
+			PanelAgendaDayActivity panelAgendaDayActivity = panelAgendaDayActivityList.get(i);
 			panelAgendaDayActivity.update(dayEvent);
-			this.add(panelAgendaDayActivity);
+			panelAgendaDayActivity.setVisible(true);
 		}
 		
 		//On met a jour le titre avec la date:
