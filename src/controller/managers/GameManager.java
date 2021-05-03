@@ -67,6 +67,9 @@ public class GameManager
 		Team teamD = gameData.getTeam(2);
 		EventMatch test2 = new EventMatch(gameData, mainFrame, teamC, teamD);
 		gameData.getAgenda().addEventToCalendar(test2, gameData.getAgenda().getCurrentDate().plusDays(2));
+		
+		EventMatch test3 = new EventMatch(gameData, mainFrame, teamC, teamD);
+		gameData.getAgenda().addEventToCalendar(test3, gameData.getAgenda().getCurrentDate());
 	}
 	
 	private void generateMessages()
@@ -77,19 +80,19 @@ public class GameManager
 		gameData.getMessagerie().addEmail(test);
 	}
 	
+	//Appelé par le bouton suivant:
 	public void nextAction()
 	{
-		//TODO:
-		//Tant qu'il reste des actions, le bouton continuer permet de lancer l'action du jour.
-		//Comme ca si on ajoute des matchs en cours de route, on les ajoute à la liste
-		//Si il n'y a plus d'actions du jour, on lance un check de warning sur la messagerie, contracts, etc...
-		
-		//On verifie les actions de la journee:
-		boolean actionOK = actionEvents();
-		
-		//Si toutes les actions ont été effectuées, on passe au jour suivant:
-		if (actionOK)
+		//Si tous les evenements de la journée sont terminés, on passe au jour suivant:
+		if (gameData.getAgenda().isCurrentDayEventsAllFinished())
+		{
 			nextDay();
+		}
+		//Si il reste de evenements en cours, on les lance:
+		else
+		{
+			actionEvents();
+		}
 	}
 	
 	private boolean actionMessagerie()
@@ -97,30 +100,20 @@ public class GameManager
 		return true;
 	}
 	
-	private boolean actionEvents()
+	private void actionEvents()
 	{
-		//On récupère les evenements de la journée:
-		DayEvent event = gameData.getAgenda().getCurrentDayEvent();
+		//On fait avancer l'événement courant de la journée:
+		DayEvent event = gameData.getAgenda().getCurrentDayActiveEvent();
 		
-		if (event.getEventStatus() != EVENT_STATUS.ENDED)
+		switch(event.getEventType())
 		{
-			switch(event.getEventType())
-			{
-			case MATCH:
-				eventMatch((EventMatch)event);
-				break;
-			case REPOS:
-				eventRepos((EventRepos)event);
-			default:
-				break;
-			}
-			return false;
-		}
-		else
-		{
-			//Envoi du mail compte rendu.
-			emailManager.endEventMail(event);
-			return true;
+		case MATCH:
+			eventMatch((EventMatch)event);
+			break;
+		case REPOS:
+			eventRepos((EventRepos)event);
+		default:
+			break;
 		}
 	}
 	
@@ -141,16 +134,36 @@ public class GameManager
 		tournamentManager.checkInscriptions();
 	}
 	
+	//TODO Plutot deplacer dans les classes respectives ?
 	private void eventMatch(EventMatch match)
 	{
-		if (match.getEventStatus() == EVENT_STATUS.NOT_STARTED)
+		EVENT_STATUS eventStatus = match.getEventStatus();
+		switch (eventStatus)
 		{
-			affichagePresentationMatch(match);
-			match.setEventStatus(EVENT_STATUS.BRIEFED);
-		}
-		else
-		{
-			affichageMatch(match);
+			case NOT_STARTED:
+			{
+				affichagePresentationMatch(match);
+				match.setEventStatus(EVENT_STATUS.BRIEFING);
+				break;
+			}
+			case BRIEFING:
+			case STARTED:
+			{
+				affichageMatch(match);
+				break;
+			}
+			case DEBRIEFING:
+			{
+				match.setEventStatus(EVENT_STATUS.ENDED);
+				
+				CardLayout cl = (CardLayout)(mainFrame.getPanelCenter().getLayout());
+				cl.show(mainFrame.getPanelCenter(), "panelAgenda");
+				break;
+			}
+			case ENDED:
+			{
+				
+			}
 		}
 	}
 	
@@ -171,6 +184,7 @@ public class GameManager
 		cl.show(mainFrame.getPanelCenter(), "panelMatch");
 	}
 	
+	//TODO Plutot deplacer dans les classes respectives ?
 	private void eventRepos(EventRepos repos)
 	{
 		repos.setEventStatus(EVENT_STATUS.ENDED);

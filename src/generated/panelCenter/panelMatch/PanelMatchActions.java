@@ -28,25 +28,22 @@ public class PanelMatchActions extends JPanel {
 	
 	public void update(EventMatch match)
 	{
-		// Match présenté mais pas commencé:
-		if (match.getEventStatus() == EVENT_STATUS.BRIEFED)
+		switch (match.getEventStatus())
 		{
+		case NOT_STARTED:
+		case BRIEFING:
 			btnStart.setText("Start match");
 			btnStart.setEnabled(true);
-		}
-		
-		// Match présenté, commencé mais pas terminé:
-		if (match.getEventStatus() == EVENT_STATUS.STARTED)
-		{
+			break;
+		case STARTED:
 			btnStart.setText("Play Round");
 			btnStart.setEnabled(true);
-		}
-		
-		// Match terminé:
-		if (match.getEventStatus() == EVENT_STATUS.ENDED)
-		{
+			break;
+		case DEBRIEFING:
+		case ENDED:
 			btnStart.setText("Match over");
 			btnStart.setEnabled(false);
+			break;
 		}
 	}
 }

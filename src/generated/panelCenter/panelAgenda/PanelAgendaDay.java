@@ -14,44 +14,34 @@ import javax.swing.JTable;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
 
 public class PanelAgendaDay extends JPanel {
-	private JLabel lblActivityName;
-	private JPanel panelAgendaDayActivity;
 
 	/**
 	 * Create the panel.
 	 */
 	public PanelAgendaDay() {
 		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "day", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		setLayout(new BorderLayout(0, 0));
-		
-		panelAgendaDayActivity = new JPanel();
-		panelAgendaDayActivity.setBackground(Color.LIGHT_GRAY);
-		add(panelAgendaDayActivity, BorderLayout.NORTH);
-		panelAgendaDayActivity.setLayout(new BorderLayout(0, 0));
-		
-		lblActivityName = new JLabel("ActivityName");
-		panelAgendaDayActivity.add(lblActivityName);
+		setLayout(new GridLayout(0, 1, 0, 0));
 
 	}
 
 	public void update(LocalDate date, Day day, boolean isCurrentDate)
 	{
-		DayEvent dayEvent = day.getDayEvent();
+		//test
+		this.removeAll();
 		
 		//On met à jour les activités du jour:
-		if (dayEvent != null)
+		ArrayList<DayEvent> dayEvents = day.getDayEvents();
+		for(DayEvent dayEvent : dayEvents)
 		{
-			String eventDescription = dayEvent.getEventDescription();
-			lblActivityName.setText(eventDescription);
-			panelAgendaDayActivity.setBackground(dayEvent.getEventColor());
-		}
-		else
-		{
-			lblActivityName.setText("PAS D'ACTIVITE");
+			PanelAgendaDayActivity panelAgendaDayActivity = new PanelAgendaDayActivity();
+			panelAgendaDayActivity.update(dayEvent);
+			this.add(panelAgendaDayActivity);
 		}
 		
 		//On met a jour le titre avec la date:

@@ -29,8 +29,8 @@ public class EventMatch extends DayEvent {
 	private InGameTeam inGameTeamA;
 	private InGameTeam inGameTeamB;
 
-	private final int roundVictoire = 5;
-	private final int roundHalf = 4;
+	private final int roundVictoire = 2;
+	private final int roundHalf = 1;
 	private int roundJoues = 0;
 
 	private final int roundDuration = 115;
@@ -291,7 +291,7 @@ public class EventMatch extends DayEvent {
 		{
 		case NOT_STARTED:
 			break;
-		case BRIEFED:
+		case BRIEFING:
 		{
 			chooseSide();
 
@@ -305,12 +305,12 @@ public class EventMatch extends DayEvent {
 
 			if (checkVictory()) 
 			{
-				this.eventStatus = EVENT_STATUS.ENDED;
+				this.eventStatus = EVENT_STATUS.DEBRIEFING;
 			}
 			
 			break;
 		}
-		case DEBRIEFED:
+		case DEBRIEFING:
 			break;
 		case ENDED:
 			break;

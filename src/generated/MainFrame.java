@@ -117,20 +117,26 @@ public class MainFrame implements Observer {
 	
 	private void updateMainFrameComponents(GameData gameData)
 	{
-		DayEvent dayEvent = gameData.getAgenda().getCurrentDayEvent();
+		if (gameData.getAgenda().isCurrentDayEventsAllFinished())
+		{
+			btnContinue.setText("Jour suivant");
+			return;
+		}
+		
+		DayEvent dayEvent = gameData.getAgenda().getCurrentDayActiveEvent();
 		
 		switch (dayEvent.getEventStatus())
 		{
 		case NOT_STARTED:
 			btnContinue.setText("LANCER PREPARATION "+dayEvent.getEventType());
 			break;
-		case BRIEFED:
+		case BRIEFING:
 			btnContinue.setText("LANCER "+dayEvent.getEventType());
 			break;
 		case STARTED:
-			btnContinue.setText("FIN "+dayEvent.getEventType());
+			btnContinue.setText("RETOUR "+dayEvent.getEventType());
 			break;
-		case DEBRIEFED:
+		case DEBRIEFING:
 			btnContinue.setText("QUITTER DEBRIEFING "+dayEvent.getEventType());
 			break;
 		case ENDED:

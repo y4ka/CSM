@@ -27,7 +27,7 @@ public class PanelMatchActionListener implements ActionListener{
 		if (e.getSource().equals(mainFrame.getPanelMatch().getPanelMatchActions().getBtnStart()))
 		{
 			//On recupere l'evenement en cours:
-			EventMatch match = (EventMatch) gameData.getAgenda().getCurrentDayEvent();
+			EventMatch match = (EventMatch) gameData.getAgenda().getCurrentDayActiveEvent();
 			
 			//On lance l'evenement:
 			match.startEvent();

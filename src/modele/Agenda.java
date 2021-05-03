@@ -1,6 +1,7 @@
 package modele;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -34,9 +35,19 @@ public class Agenda
 	
 	// === GETTERS ====
 	
-	public DayEvent getCurrentDayEvent()
+	public ArrayList<DayEvent> getCurrentDayEvents()
 	{
-		return this.getCurrentDay().getDayEvent();
+		return this.getCurrentDay().getDayEvents();
+	}
+	
+	public DayEvent getCurrentDayActiveEvent()
+	{
+		return this.getCurrentDay().getActiveDayEvent();
+	}
+	
+	public boolean isCurrentDayEventsAllFinished()
+	{
+		return this.getCurrentDay().isDayEventsAllFinished();
 	}
 	
 	public Day getCurrentDay()
@@ -50,9 +61,9 @@ public class Agenda
 		return agenda.get(currentDate);
 	}
 	
-	public DayEvent getDayEvent(LocalDate date)
+	public ArrayList<DayEvent> getDayEvents(LocalDate date)
 	{
-		return this.getDay(date).getDayEvent();
+		return this.getDay(date).getDayEvents();
 	}
 	
 	public Day getDay(LocalDate date)
@@ -79,7 +90,7 @@ public class Agenda
 	public void addEventToCalendar(DayEvent event, LocalDate date)
 	{
 		Day day = this.getDay(date);
-		day.setDayEvent(event);
+		day.addDayEvent(event);
 		
 		agenda.put(date, day);
 	}
@@ -95,7 +106,10 @@ public class Agenda
 		{
 			LocalDate localDate = itr.next();
 			Day day = agenda.get(localDate);
-			System.out.println(localDate + ": " + day.getDayEvent().getEventDescription());
+			for (DayEvent dayEvent : day.getDayEvents())
+			{
+				System.out.println(localDate + ": " + dayEvent.getEventDescription());
+			}
 		}
 	}
 	

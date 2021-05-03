@@ -27,13 +27,12 @@ public class PanelPresentationMatch extends JPanel implements Observer {
 		
 		panelPresentationMatchEquipeB = new PanelPresentationMatchEquipe();
 		add(panelPresentationMatchEquipeB);
-
 	}
 	
 	@Override
 	public void update(GameData gameData) 
 	{
-		DayEvent currentDayEvent = gameData.getAgenda().getCurrentDayEvent();
+		DayEvent currentDayEvent = gameData.getAgenda().getCurrentDayActiveEvent();
 		if (currentDayEvent.getEventType() == DAY_EVENTS.MATCH)
 		{
 			EventMatch currentMatch = (EventMatch) currentDayEvent;

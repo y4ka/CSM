@@ -79,7 +79,7 @@ public class PanelMatch extends JPanel implements Observer {
 	@Override
 	public void update(GameData gameData) 
 	{
-		DayEvent currentDayEvent = gameData.getAgenda().getCurrentDayEvent();
+		DayEvent currentDayEvent = gameData.getAgenda().getCurrentDayActiveEvent();
 		if (currentDayEvent.getEventType() == DAY_EVENTS.MATCH)
 		{
 			EventMatch currentMatch = (EventMatch) currentDayEvent;

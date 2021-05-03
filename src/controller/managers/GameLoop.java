@@ -29,7 +29,6 @@ public class GameLoop extends Thread
 	        
 	        //Mise à jour des vues:
 	        mainFrame.update(gameData);
-	        System.out.println("updateView");
 
 	        updateTime = System.nanoTime() - now;
 	        wait = (OPTIMAL_TIME - updateTime) / 1000000;
