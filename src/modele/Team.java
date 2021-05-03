@@ -3,9 +3,12 @@ package modele;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
+
 public class Team implements Comparable {
 	
 	protected String name;
+	protected ImageIcon image;
 	protected int rankingPoints;
 	protected Player[] players = new Player[5]; //Bench + Actifs
 	protected Player coach;
@@ -77,6 +80,14 @@ public class Team implements Comparable {
 
 	public void setInGameTeam(InGameTeam inGameTeam) {
 		this.inGameTeam = inGameTeam;
+	}
+
+	public ImageIcon getImage() {
+		return image;
+	}
+
+	public void setImage(ImageIcon image) {
+		this.image = image;
 	}
 
 	public Player getPlayer(String nickname)

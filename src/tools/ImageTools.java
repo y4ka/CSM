@@ -33,6 +33,29 @@ public class ImageTools
 			{
 				bufferedImage = ImageIO.read(url);
 				image = new ImageIcon(bufferedImage);
+			}
+		} catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return image;
+	}
+	
+	public ImageIcon loadTeamImage(int id)
+	{
+		String path = "/data/teamPictures/"+id+".jpeg";
+		ImageIcon image = null;
+		
+		try 
+		{
+			System.out.println(""+path);
+			URL url = getClass().getResource(path);
+			if (url != null)
+			{
+				System.out.println("URL OK ?");
+				bufferedImage = ImageIO.read(url);
+				image = new ImageIcon(bufferedImage);
 			}	
 		} catch (IOException e) 
 		{

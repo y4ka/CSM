@@ -398,4 +398,20 @@ public class EventMatch extends DayEvent {
 	public int getTimeRemaining() {
 		return timeRemaining;
 	}
+
+	public Team getTeamA() {
+		return teamA;
+	}
+
+	public void setTeamA(Team teamA) {
+		this.teamA = teamA;
+	}
+
+	public Team getTeamB() {
+		return teamB;
+	}
+
+	public void setTeamB(Team teamB) {
+		this.teamB = teamB;
+	}
 }

@@ -128,8 +128,11 @@ public class GameData
 				 newTeam.addPlayer(player);
 			 }
 			 
+			 ImageIcon image = imageTools.loadTeamImage(id);
+			 
 			 //On met a jour les champs de l'equipe:
 			 newTeam.setName(name);
+			 newTeam.setImage(image);
 			 
 			 //On ajoute l'equipe dans la base de donnees:
 			 teamDatabase.put(id, newTeam);
